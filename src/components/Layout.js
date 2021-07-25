@@ -8,11 +8,14 @@ import About from "./About";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import QueryFetch from "./QueryFetch";
+import reducer from "../reducers/tasksReducer";
+import ACTIONS from "../Actions";
 
 const FlexLayout = () => {
   const queryClient = new QueryClient();
   const tasksss = [];
-  const [tasks, setTasks] = useState(tasksss);
+  // const [tasks, setTasks] = useState(tasksss);
+  const [state, dispatch] = useReducer(reducer, []);
 
   // fetch tasks
   const fetchTasksReq = async () => {
@@ -51,18 +54,17 @@ const FlexLayout = () => {
 
   useEffect(() => {
     async function fetchData() {
-      const response = await fetchTasksReq();
-      // ...
-      setTasks(response);
+      const data = await fetchTasksReq();
+      console.log(data);
+      dispatch({ type: ACTIONS.FETCH_DATA, payload: data });
     }
     fetchData();
   }, []);
 
   // delete tasks
   const deleteTask = (id) => {
-    // setDone(2);
     deleteTaskReq(id);
-    setTasks(tasks.filter((task) => task.id !== id));
+    dispatch({ type: ACTIONS.DELETE_TASK, payload: id });
   };
 
   const setDoneState = async (id) => {
@@ -75,21 +77,21 @@ const FlexLayout = () => {
       body: JSON.stringify(updTask),
     });
     console.log(`res`, await res.json());
-    setTasks(
-      tasks.map((task) =>
-        task.id === id ? { ...task, done: !task.done } : task
-      )
-    );
+    dispatch({ type: ACTIONS.SET_DONE, payload: id });
+
+    // setTasks(
+    //   tasks.map((task) =>
+    //     task.id === id ? { ...task, done: !task.done } : task
+    //   )
+    // );
 
     // setTasks(newArr);
   };
 
   // Add task
   const addTaskInList = async (task) => {
-    console.log("add task", task, ...tasks);
     const newTask = await addTaskReq(task);
-    console.log(newTask);
-    setTasks([...tasks, newTask]);
+    dispatch({ type: ACTIONS.ADD_TASK, payload: newTask });
   };
 
   return (
@@ -116,9 +118,9 @@ const FlexLayout = () => {
             render={(props) => (
               <>
                 {" "}
-                {tasks.length > 0 ? (
+                {state.length > 0 ? (
                   <Tasks
-                    tasks={tasks}
+                    tasks={state}
                     onDelete={deleteTask}
                     setDone={setDoneState}
                   />

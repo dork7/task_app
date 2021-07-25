@@ -13,4 +13,5 @@ In the project directory, you can run:
 ### `react-hook-form`
 
 ### `react-router-dom`
-"# task_app" 
+
+### `react query`

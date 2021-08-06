@@ -9,12 +9,11 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider, useQuery } from "react-query";
 import QueryFetch from "./QueryFetch";
 import reducer from "../reducers/tasksReducer";
-import ACTIONS from "../Actions";
+import ACTIONS from "../Actions/Actions";
+import CompletedTasks from "./CompletedTasks";
 
 const FlexLayout = () => {
   const queryClient = new QueryClient();
-  const tasksss = [];
-  // const [tasks, setTasks] = useState(tasksss);
   const [state, dispatch] = useReducer(reducer, []);
 
   // fetch tasks
@@ -32,14 +31,17 @@ const FlexLayout = () => {
 
   // delete request
   const deleteTaskReq = async (id) => {
+    const prev_task = await fetchTaskByIdReq(id);
+    addTaskReq(prev_task, "deleted");
     await fetch(`http://localhost:7878/tasks/${id}`, {
       method: "DELETE",
     });
   };
 
   // add request
-  const addTaskReq = async (task) => {
-    const res = await fetch(`http://localhost:7878/tasks`, {
+  const addTaskReq = async (task, table = "tasks") => {
+    console.log(`task , table`, task, table);
+    const res = await fetch(`http://localhost:7878/${table}`, {
       method: "POST",
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(task),
@@ -47,10 +49,6 @@ const FlexLayout = () => {
     console.log(res);
     return res.json();
   };
-
-  // useEffect(async () => {
-  //   setTasks(await fetchTasksReq());
-  // }, []);
 
   useEffect(() => {
     async function fetchData() {
@@ -78,14 +76,6 @@ const FlexLayout = () => {
     });
     console.log(`res`, await res.json());
     dispatch({ type: ACTIONS.SET_DONE, payload: id });
-
-    // setTasks(
-    //   tasks.map((task) =>
-    //     task.id === id ? { ...task, done: !task.done } : task
-    //   )
-    // );
-
-    // setTasks(newArr);
   };
 
   // Add task
@@ -97,13 +87,13 @@ const FlexLayout = () => {
   return (
     <Router>
       <Flex
-        alignItems="center"
+        alignItems="flex-start"
         justifyContent="center"
         // backgroundColor="gray.700"
         // grow={true}
         // height="100%"
       >
-        <Stack alignContent="center">
+        <Stack alignContent="center" m={8}>
           <Text fontSize="1xl">Tasks List</Text>
           {/* {tasks.length > 0 ? (
             <Tasks tasks={tasks} onDelete={deleteTask} setDone={setDoneState} />
@@ -141,6 +131,23 @@ const FlexLayout = () => {
             <QueryFetch />
           </QueryClientProvider>
         </Stack>
+
+        <Stack m={8} alignContent="center">
+          <Text fontSize="1xl">Completed Tasks</Text>
+          <CompletedTasks
+            tasks={state}
+            onDelete={deleteTask}
+            setDone={setDoneState}
+          />
+        </Stack>
+        {/* <Stack m={8} alignContent="center">
+          <Text fontSize="1xl">Deleted Tasks</Text>
+          <CompletedTasks
+            tasks={state}
+            onDelete={deleteTask}
+            setDone={setDoneState}
+          />
+        </Stack> */}
       </Flex>
     </Router>
   );

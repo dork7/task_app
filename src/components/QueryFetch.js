@@ -23,4 +23,4 @@ const QueryFetch = () => {
   );
 };
 
-export default QueryFetch;
+export default React.memo(QueryFetch);

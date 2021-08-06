@@ -1,13 +1,13 @@
 import React from "react";
-import ACTIONS from "../Actions";
+import ACTIONS from "../Actions/Actions";
 
 const reducer = (tasks, action) => {
-  console.log(`state`, tasks);
+  // console.log(`state`, tasks);
 
-  console.log(`action`, action.payload);
+  // console.log(`action`, action.payload);
   switch (action.type) {
     case ACTIONS.FETCH_DATA:
-      console.log(` [...tasks, action.payload]`, [...tasks, action.payload]);
+      // console.log(` [...tasks, action.payload]`, [...tasks, action.payload]);
       return action.payload;
     case ACTIONS.ADD_TASK:
       return [...tasks, action.payload];
@@ -17,6 +17,8 @@ const reducer = (tasks, action) => {
       return tasks.map((task) =>
         task.id === action.payload ? { ...task, done: !task.done } : task
       );
+    default:
+      return tasks;
   }
 };
 

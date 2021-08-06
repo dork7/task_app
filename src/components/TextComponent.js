@@ -61,12 +61,12 @@ const TextComponent = ({ variant, btnText, onAdd }) => {
           children={<Checkbox colorScheme="red" defaultIsChecked></Checkbox>}
         />
       </InputGroup> */}
-        <Button bg="green.600" isFullWidth={true} type="submit" mt={2}>
+        {/* <Button bg="green.600" isFullWidth={true} type="submit" mt={2}>
           {btnText}
-        </Button>
+        </Button> */}
       </form>
     </>
   );
 };
 
-export default TextComponent;
+export default React.memo(TextComponent);

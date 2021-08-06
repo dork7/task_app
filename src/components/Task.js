@@ -11,6 +11,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 
 const Task = ({ task, onDelete, setDone }) => {
   // const [task, setTask] = useState(initialState);
+
   return (
     <div>
       <InputGroup>
@@ -43,4 +44,4 @@ const Task = ({ task, onDelete, setDone }) => {
   );
 };
 
-export default Task;
+export default React.memo(Task);

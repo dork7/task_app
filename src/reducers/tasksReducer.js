@@ -1,4 +1,3 @@
-import React from "react";
 import ACTIONS from "../Actions/Actions";
 
 const reducer = (tasks, action) => {

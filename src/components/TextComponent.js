@@ -1,15 +1,12 @@
-import { Box, Button, Container, Input, useToast } from "@chakra-ui/react";
+import { Box, Container, Input, useToast } from "@chakra-ui/react";
 import React from "react";
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 const TextComponent = ({ variant, btnText, onAdd }) => {
-  const [task, setTask] = useState("");
   const toast = useToast();
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = (e) => {

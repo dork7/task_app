@@ -1,20 +1,24 @@
 import { Flex, Stack, Text } from "@chakra-ui/react";
-import React from "react";
+import React, { useEffect, useReducer } from "react";
+import { isError } from "react-query";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import ACTIONS from "../Actions/Actions";
+import { useFetchData } from "../hooks/useFetchData";
+import reducer from "../reducers/tasksReducer";
+import About from "./About";
+import CompletedTasks from "./CompletedTasks";
+import Footer from "./Footer";
+import QueryFetch from "./QueryFetch";
 import Tasks from "./Tasks";
 import TextComponent from "./TextComponent";
-import { useState, useEffect, useReducer } from "react";
-import Footer from "./Footer";
-import About from "./About";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider, useQuery } from "react-query";
-import QueryFetch from "./QueryFetch";
-import reducer from "../reducers/tasksReducer";
-import ACTIONS from "../Actions/Actions";
-import CompletedTasks from "./CompletedTasks";
 
 const FlexLayout = () => {
-  const queryClient = new QueryClient();
   const [state, dispatch] = useReducer(reducer, []);
+
+  const URL = "http://localhost:7878/tasks";
+  const key = "tasks";
+  const enableFetch = true;
+  const { data, error, isLoading } = useFetchData(key, URL, enableFetch);
 
   // fetch tasks
   const fetchTasksReq = async () => {
@@ -84,6 +88,16 @@ const FlexLayout = () => {
     dispatch({ type: ACTIONS.ADD_TASK, payload: newTask });
   };
 
+  if (data) {
+    console.log(`data from fetch query`, data);
+  }
+  if (error) {
+    console.log(`error`, error);
+  }
+  if (isLoading) {
+    return <div>Loading ....</div>;
+  }
+
   return (
     <Router>
       <Flex
@@ -110,7 +124,7 @@ const FlexLayout = () => {
                 {" "}
                 {state.length > 0 ? (
                   <Tasks
-                    tasks={state}
+                    tasks={data}
                     onDelete={deleteTask}
                     setDone={setDoneState}
                   />
@@ -127,9 +141,7 @@ const FlexLayout = () => {
           />
           <Route path="/about" component={About} />
           <Footer />
-          <QueryClientProvider client={queryClient}>
-            <QueryFetch />
-          </QueryClientProvider>
+          {/* <QueryFetch /> */}
         </Stack>
 
         <Stack m={8} alignContent="center">

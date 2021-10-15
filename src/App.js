@@ -2,7 +2,7 @@ import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import { QueryClient, QueryClientProvider } from "react-query";
 import FlexLayout from "./components/Layout";
 import { ReactQueryDevtools } from "react-query/devtools";
-import ListComp from "./reactquery/List";
+import ListComp from "./react-query/List";
 const theme = extendTheme({
   config: {
     useSystemColorMode: true,
@@ -16,8 +16,8 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <QueryClientProvider client={queryClient}>
-        {/* <FlexLayout /> */}
-        <ListComp />
+        <FlexLayout />
+        {/* <ListComp /> */}
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>
     </ChakraProvider>

@@ -111,7 +111,7 @@ const FlexLayout = () => {
           <TextComponent variant="filled" btnText="Add" onAdd={addTaskInList} /> */}
           {/* <MButton variant="" text="Add" onClick={onButtonClick}></MButton> */}
           <Route
-            path="/"
+            path="/todos"
             exact
             render={(props) => (
               <>
@@ -133,7 +133,7 @@ const FlexLayout = () => {
               </>
             )}
           />
-          <Route path="/about" component={About} />
+          <Route exact path="/about" component={About} />
           <Footer />
           <QueryClientProvider client={queryClient}>
             <QueryFetch />

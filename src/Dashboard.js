@@ -8,14 +8,21 @@ const pages = [
   { label: "Axios", href: "/axios" },
   { label: "Chat", href: "/chat" },
   { label: "Receiver", href: "/receiver" },
+  { label: "NodeMailer", href: "/nodemailer" },
 ];
 
 const Dashboard = () => {
   return (
     <Center>
       <HStack p={4}>
-        {pages.map((page) => (
-          <Button as="a" href={page.href} variant="solid" colorScheme="teal">
+        {pages.map((page, idx) => (
+          <Button
+            key={idx}
+            as="a"
+            href={page.href}
+            variant="solid"
+            colorScheme="teal"
+          >
             {page.label}
           </Button>
         ))}

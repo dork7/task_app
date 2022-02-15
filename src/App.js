@@ -9,6 +9,7 @@ import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
 import PubNubtest from "./components/chat/PubNubtest";
 import Dashboard from "./Dashboard";
+import MailSender from "./nodemailer/MailSender";
 
 const theme = extendTheme({
   config: {
@@ -39,6 +40,7 @@ function App() {
               <Route exact path="/todos" component={FlexLayout} />
               <Route exact path="/axios" component={AxiosLayout} />
               <Route exact path="/receiver" component={Receiver} />
+              <Route exact path="/nodemailer" component={MailSender} />
               {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
             </Switch>
             {/* <Footer /> */}

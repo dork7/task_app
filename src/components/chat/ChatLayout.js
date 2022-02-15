@@ -22,13 +22,7 @@ const usersList = [
   "617f8ffbc44532002ebe71c4",
 ];
 
-const customerList = [
-  "60b8a44cffd49e20280e8362",
-  "60c09fb979cc9c8528da09d1",
-  "60c0a23da20d7c5790c14d21",
-  "612d1dcc4a18900ea3c6f716",
-  "612d1e184a18900ea3c6f717",
-];
+const customerList = ["620a421f2af003ef8069f6f8"];
 
 const ChatLayout = () => {
   const pubnub = usePubNub();

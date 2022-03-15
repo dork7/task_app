@@ -10,6 +10,7 @@ import { PubNubProvider } from "pubnub-react";
 import PubNubtest from "./components/chat/PubNubtest";
 import Dashboard from "./Dashboard";
 import MailSender from "./nodemailer/MailSender";
+import ReactHooks from "./components/hooks";
 
 const theme = extendTheme({
   config: {
@@ -41,6 +42,7 @@ function App() {
               <Route exact path="/axios" component={AxiosLayout} />
               <Route exact path="/receiver" component={Receiver} />
               <Route exact path="/nodemailer" component={MailSender} />
+              <Route exact path="/react-hooks" component={ReactHooks} />
               {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
             </Switch>
             {/* <Footer /> */}

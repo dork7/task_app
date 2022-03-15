@@ -6,7 +6,7 @@ In the project directory, you can run:
 
 ### `yarn server` // to start json based fake server xD
 
-###
+### `React-hooks`
 
 ### `chakra-ui`
 
@@ -16,4 +16,4 @@ In the project directory, you can run:
 
 ### `react query`
 
-# every thing which is done using redux is in branch `withRedux`, this branch contains `react-query`
+### `PubNub react chat`

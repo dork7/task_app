@@ -9,6 +9,7 @@ const pages = [
   { label: "Chat", href: "/chat" },
   { label: "Receiver", href: "/receiver" },
   { label: "NodeMailer", href: "/nodemailer" },
+  { label: "ReactHooks", href: "/react-hooks" },
 ];
 
 const Dashboard = () => {

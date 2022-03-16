@@ -12,6 +12,9 @@ import Dashboard from "./Dashboard";
 import MailSender from "./nodemailer/MailSender";
 import ReactHooks from "./components/hooks";
 import Observables from "./components/observables";
+import Home from "./components/Home";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { QueryClient, QueryClientProvider } from "react-query";
 
 const theme = extendTheme({
   config: {
@@ -27,30 +30,35 @@ const pubnub = new PubNub({
 });
 
 function App() {
+  const queryClient = new QueryClient();
+
   return (
     <ChakraProvider>
       {/* <FlexLayout /> */}
       {/* <AxiosLayout /> */}
-      <PubNubProvider client={pubnub}>
-        <Router>
-          <div className="App">
-            {/* <Navbar /> */}
-            <Dashboard />
-            <Switch>
-              <Route exact path="/" component={ChatLayout} />
-              <Route exact path="/chat" component={ChatLayout} />
-              <Route exact path="/todos" component={FlexLayout} />
-              <Route exact path="/axios" component={AxiosLayout} />
-              <Route exact path="/receiver" component={Receiver} />
-              <Route exact path="/nodemailer" component={MailSender} />
-              <Route exact path="/react-hooks" component={ReactHooks} />
-              <Route exact path="/observable" component={Observables} />
-              {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
-            </Switch>
-            {/* <Footer /> */}
-          </div>
-        </Router>
-      </PubNubProvider>
+      <QueryClientProvider client={queryClient}>
+        <PubNubProvider client={pubnub}>
+          <Router>
+            <div className="App">
+              {/* <Navbar /> */}
+              <Dashboard />
+              <Switch>
+                <Route exact path="/" component={Home} />
+                <Route exact path="/chat" component={ChatLayout} />
+                <Route exact path="/todos" component={FlexLayout} />
+                <Route exact path="/axios" component={AxiosLayout} />
+                <Route exact path="/receiver" component={Receiver} />
+                <Route exact path="/nodemailer" component={MailSender} />
+                <Route exact path="/react-hooks" component={ReactHooks} />
+                <Route exact path="/observable" component={Observables} />
+                {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
+              </Switch>
+              {/* <Footer /> */}
+            </div>
+          </Router>
+        </PubNubProvider>
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </ChakraProvider>
   );
 }

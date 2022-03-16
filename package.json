@@ -31,7 +31,7 @@
   },
   "scripts": {
     "dev": "react-scripts start",
-    "start": "react-scripts start",
+    "start": "set PORT=1122 && react-scripts start",
     "serve": "node express-server",
     "build": "react-scripts build",
     "test": "react-scripts test",

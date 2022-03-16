@@ -25,16 +25,20 @@ const ImperativeHandleHook = () => {
 };
 
 const ChildComponent = forwardRef((props, ref) => {
-  const [val, setVal] = useState("hello");
+  const [val, setVal] = useState(false);
   useImperativeHandle(ref, () => ({
     triggerFunc() {
       console.log("This function is triggered by its parent using fwd Ref");
-      setVal("bye");
+      setVal(!val);
     },
   }));
   return (
     <>
-      <Button onClick={() => setVal("hello")}>{val}</Button>
+      <Stack>
+        <Text>ChildComponent</Text>
+
+        <Button onClick={() => setVal(!val)}>{val ? "hello" : "bye"}</Button>
+      </Stack>
     </>
   );
 });

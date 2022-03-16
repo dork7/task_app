@@ -9,11 +9,11 @@ import ReducerHook from "./ReducerHook";
 import RefHook from "./RefHook";
 
 const hooks = [
+  "useCallBack",
   "useMemo",
   "useContextHook",
   "useReducer",
   "useRef",
-  "useCallBack",
   "useImperativeHandle_useForwardRef",
 ];
 
@@ -31,7 +31,15 @@ const ReactHooks = () => {
     >
       <HStack p={4}>
         {hooks.map((item) => (
-          <Button key={item} onClick={() => setSelectedHook(item)}>
+          <Button
+            variant={"outline"}
+            _focus={{
+              bg: "black",
+              color: "white",
+            }}
+            key={item}
+            onClick={() => setSelectedHook(item)}
+          >
             {item}
           </Button>
         ))}

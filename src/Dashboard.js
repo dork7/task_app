@@ -10,6 +10,7 @@ const pages = [
   { label: "Receiver", href: "/receiver" },
   { label: "NodeMailer", href: "/nodemailer" },
   { label: "ReactHooks", href: "/react-hooks" },
+  { label: "Observables", href: "/observable" },
 ];
 
 const Dashboard = () => {

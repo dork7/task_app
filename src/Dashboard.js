@@ -18,7 +18,7 @@ const Dashboard = () => {
       <HStack p={4}>
         {pages.map((page, idx) => (
           <Button
-            key={idx}
+            key={`${page}-${idx}`}
             as="a"
             href={page.href}
             variant="solid"

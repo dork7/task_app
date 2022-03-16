@@ -16,6 +16,8 @@ const ReducerHook = () => {
   return (
     <HStack>
       <Stack>
+        <Text> ReducerHook </Text>
+
         <Button onClick={inc}>INC</Button>
         <Button onClick={dec}>DEC</Button>
       </Stack>

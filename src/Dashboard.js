@@ -2,18 +2,7 @@ import { Button } from "@chakra-ui/button";
 import { Center, HStack } from "@chakra-ui/layout";
 import React from "react";
 
-const pages = [
-  { label: "DashBoard", href: "/" },
-  { label: "Todo", href: "/todos" },
-  { label: "Axios", href: "/axios" },
-  { label: "Chat", href: "/chat" },
-  { label: "Receiver", href: "/receiver" },
-  { label: "NodeMailer", href: "/nodemailer" },
-  { label: "ReactHooks", href: "/react-hooks" },
-  { label: "Observables", href: "/observable" },
-];
-
-const Dashboard = () => {
+const Dashboard = ({ pages }) => {
   return (
     <Center>
       <HStack p={4}>

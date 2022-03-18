@@ -15,6 +15,7 @@ import Observables from "./components/observables";
 import Home from "./components/Home";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
+import MapComponent from "./components/map";
 
 const theme = extendTheme({
   config: {
@@ -28,8 +29,18 @@ const pubnub = new PubNub({
   // uuid: "myUniqueUUID",
   uuid: "dork",
 });
-
 function App() {
+  const pages = [
+    { label: "DashBoard", href: "/" },
+    { label: "Todo", href: "/todos" },
+    { label: "Axios", href: "/axios" },
+    { label: "Chat", href: "/chat" },
+    { label: "Receiver", href: "/receiver" },
+    { label: "NodeMailer", href: "/nodemailer" },
+    { label: "ReactHooks", href: "/react-hooks" },
+    { label: "Observables", href: "/observable" },
+    { label: "Map", href: "/map" },
+  ];
   const queryClient = new QueryClient();
 
   return (
@@ -41,7 +52,7 @@ function App() {
           <Router>
             <div className="App">
               {/* <Navbar /> */}
-              <Dashboard />
+              <Dashboard pages={pages} />
               <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/chat" component={ChatLayout} />
@@ -51,6 +62,7 @@ function App() {
                 <Route exact path="/nodemailer" component={MailSender} />
                 <Route exact path="/react-hooks" component={ReactHooks} />
                 <Route exact path="/observable" component={Observables} />
+                <Route exact path="/map" component={MapComponent} />
                 {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
               </Switch>
               {/* <Footer /> */}

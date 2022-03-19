@@ -36,9 +36,9 @@ function App() {
     { label: "Axios", href: "/axios" },
     { label: "Chat", href: "/chat" },
     { label: "Receiver", href: "/receiver" },
-    { label: "NodeMailer", href: "/nodemailer" },
+    // { label: "NodeMailer", href: "/nodemailer" },
     { label: "ReactHooks", href: "/react-hooks" },
-    { label: "Observables", href: "/observable" },
+    // { label: "Observables", href: "/observable" },
     { label: "Map", href: "/map" },
   ];
   const queryClient = new QueryClient();

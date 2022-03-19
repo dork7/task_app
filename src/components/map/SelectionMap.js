@@ -163,7 +163,7 @@ const SelectionMap = () => {
     <>
       <Box gridArea="leftcard" d="flex" flexDir="column">
         <GooglePlacesAutocomplete
-          apiKey="AIzaSyDsi9QJanCaHPjrONtoNIKTJW7RmnKvjHI"
+          apiKey="AIzaSyBrHdDn6EVan8yCd--8KCTBKL0C0aruRj0"
           selectProps={{
             placeholder: "Search an Address & Draw an area on the Map",
             onChange: updateLocation,

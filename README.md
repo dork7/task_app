@@ -4,7 +4,7 @@ This is a react based demo application which contain implementation of different
 
 ##
 
-DEMO : https://react-demo-dork7.vercel.app
+DEMO : http://react-demo-mapp.herokuapp.com/
 
 ##
 

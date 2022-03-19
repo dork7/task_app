@@ -32,7 +32,7 @@ const pubnub = new PubNub({
 function App() {
   const pages = [
     { label: "DashBoard", href: "/" },
-    { label: "Todo", href: "/todos" },
+    // { label: "Todo", href: "/todos" },
     { label: "Axios", href: "/axios" },
     { label: "Chat", href: "/chat" },
     { label: "Receiver", href: "/receiver" },
@@ -40,6 +40,7 @@ function App() {
     { label: "ReactHooks", href: "/react-hooks" },
     // { label: "Observables", href: "/observable" },
     { label: "Map", href: "/map" },
+    { label: "Autocomplete", href: "/autocomplete" },
   ];
   const queryClient = new QueryClient();
 
@@ -63,6 +64,7 @@ function App() {
                 <Route exact path="/react-hooks" component={ReactHooks} />
                 <Route exact path="/observable" component={Observables} />
                 <Route exact path="/map" component={MapComponent} />
+                <Route exact path="/autocomplete" component={MapComponent} />
                 {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
               </Switch>
               {/* <Footer /> */}

@@ -16,6 +16,7 @@ import Home from "./components/Home";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import MapComponent from "./components/map";
+import AutoCompleteField from "./components/autoComplete";
 
 const theme = extendTheme({
   config: {
@@ -64,7 +65,11 @@ function App() {
                 <Route exact path="/react-hooks" component={ReactHooks} />
                 <Route exact path="/observable" component={Observables} />
                 <Route exact path="/map" component={MapComponent} />
-                <Route exact path="/autocomplete" component={MapComponent} />
+                <Route
+                  exact
+                  path="/autocomplete"
+                  component={AutoCompleteField}
+                />
                 {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
               </Switch>
               {/* <Footer /> */}

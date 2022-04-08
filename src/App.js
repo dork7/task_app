@@ -49,10 +49,10 @@ function App() {
   const queryClient = new QueryClient();
 
   useEffect(() => {
-    console.log("queryClient", queryClient?.queryCache?.queriesMap);
-    for (let keys in queryClient?.queryCache?.queriesMap) {
-      console.log("keys", keys, queryClient?.queryCache?.queriesMap[keys]);
-    }
+    // console.log("queryClient", queryClient?.queryCache?.queriesMap);
+    // for (let keys in queryClient?.queryCache?.queriesMap) {
+    //   console.log("keys", keys, queryClient?.queryCache?.queriesMap[keys]);
+    // }
   }, []);
 
   return (

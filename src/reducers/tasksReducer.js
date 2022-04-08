@@ -9,6 +9,7 @@ const reducer = (tasks, action) => {
       // console.log(` [...tasks, action.payload]`, [...tasks, action.payload]);
       return action.payload;
     case ACTIONS.ADD_TASK:
+      console.log("tasks", tasks);
       return [...tasks, action.payload];
     case ACTIONS.DELETE_TASK:
       return tasks.filter((task) => task.id !== action.payload);

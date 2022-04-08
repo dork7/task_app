@@ -16,6 +16,7 @@ import React from "react";
 // ];
 const Tasks = ({ tasks, onDelete, setDone }) => {
   //   const [tasks, setTasks] = useState(tasksss);
+  console.log("tasks", tasks);
   return (
     <>
       {/* <h3 key={task.id}> {task.descp}</h3> */}

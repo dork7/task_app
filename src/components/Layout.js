@@ -17,7 +17,7 @@ const FlexLayout = () => {
 
   const URL = "http://localhost:7878/tasks";
   const key = "tasks";
-  const enableFetch = true;
+  const enableFetch = false;
   const { data, error, isLoading } = useFetchData(key, URL, enableFetch);
 
   // fetch tasks
@@ -60,17 +60,20 @@ const FlexLayout = () => {
       console.log(data);
       dispatch({ type: ACTIONS.FETCH_DATA, payload: data });
     }
-    fetchData();
+    // fetchData();
   }, []);
 
   // delete tasks
   const deleteTask = (id) => {
-    deleteTaskReq(id);
+    // deleteTaskReq(id);
     dispatch({ type: ACTIONS.DELETE_TASK, payload: id });
   };
 
   const setDoneState = async (id) => {
-    console.log(`id`, id);
+    // setDone(id);
+    dispatch({ type: ACTIONS.SET_DONE, payload: id });
+  };
+  const setDone = async (id) => {
     const task = await fetchTaskByIdReq(id);
     const updTask = { ...task, done: !task.done };
     const res = await fetch(`http://localhost:7878/tasks/${id}`, {
@@ -78,14 +81,12 @@ const FlexLayout = () => {
       headers: { "Content-type": "application/json" },
       body: JSON.stringify(updTask),
     });
-    console.log(`res`, await res.json());
-    dispatch({ type: ACTIONS.SET_DONE, payload: id });
   };
 
   // Add task
   const addTaskInList = async (task) => {
-    const newTask = await addTaskReq(task);
-    dispatch({ type: ACTIONS.ADD_TASK, payload: newTask });
+    // const newTask = await addTaskReq(task);
+    dispatch({ type: ACTIONS.ADD_TASK, payload: task });
   };
 
   if (data) {
@@ -97,6 +98,9 @@ const FlexLayout = () => {
   // if (isLoading) {
   //   return <div>Loading ....</div>;
   // }
+  useEffect(() => {
+    console.log("state", state);
+  }, []);
 
   return (
     <Router>
@@ -106,8 +110,9 @@ const FlexLayout = () => {
         // backgroundColor="gray.700"
         // grow={true}
         // height="100%"
+        w="full"
       >
-        <Stack alignContent="center" m={8}>
+        <Stack alignContent="center" m={8} w="100%">
           <Text fontSize="1xl">Tasks List</Text>
           {/* {tasks.length > 0 ? (
             <Tasks tasks={tasks} onDelete={deleteTask} setDone={setDoneState} />
@@ -122,9 +127,10 @@ const FlexLayout = () => {
             render={(props) => (
               <>
                 {" "}
-                {state.length > 0 ? (
+                {console.log(state)}
+                {state?.length > 0 ? (
                   <Tasks
-                    tasks={data}
+                    tasks={state}
                     onDelete={deleteTask}
                     setDone={setDoneState}
                   />
@@ -144,7 +150,7 @@ const FlexLayout = () => {
           {/* <QueryFetch /> */}
         </Stack>
 
-        <Stack m={8} alignContent="center">
+        <Stack m={8} alignContent="center" w="100%">
           <Text fontSize="1xl">Completed Tasks</Text>
           <CompletedTasks
             tasks={state}

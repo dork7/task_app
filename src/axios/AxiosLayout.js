@@ -16,7 +16,7 @@ import axios from "axios";
 
 axios.interceptors.request.use(
   (config) => {
-    console.log(`Interceptor config`, config);
+    // console.log(`Interceptor config`, config);
     return config;
   },
   (error) => {

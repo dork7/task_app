@@ -17,6 +17,8 @@ import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
 import MapComponent from "./components/map";
 import AutoCompleteField from "./components/autoComplete";
+import MethodImplementations from "./components/MethodImplementations";
+import { useEffect } from "react";
 
 const theme = extendTheme({
   config: {
@@ -33,7 +35,8 @@ const pubnub = new PubNub({
 function App() {
   const pages = [
     { label: "DashBoard", href: "/" },
-    // { label: "Todo", href: "/todos" },
+    { label: "Todo", href: "/todos" },
+    { label: "Methods", href: "/methodImplementations" },
     { label: "Axios", href: "/axios" },
     { label: "Chat", href: "/chat" },
     { label: "Receiver", href: "/receiver" },
@@ -44,6 +47,13 @@ function App() {
     { label: "Autocomplete", href: "/autocomplete" },
   ];
   const queryClient = new QueryClient();
+
+  useEffect(() => {
+    console.log("queryClient", queryClient?.queryCache?.queriesMap);
+    for (let keys in queryClient?.queryCache?.queriesMap) {
+      console.log("keys", keys, queryClient?.queryCache?.queriesMap[keys]);
+    }
+  }, []);
 
   return (
     <ChakraProvider>
@@ -65,6 +75,11 @@ function App() {
                 <Route exact path="/react-hooks" component={ReactHooks} />
                 <Route exact path="/observable" component={Observables} />
                 <Route exact path="/map" component={MapComponent} />
+                <Route
+                  exact
+                  path="/methodImplementations"
+                  component={MethodImplementations}
+                />
                 <Route
                   exact
                   path="/autocomplete"

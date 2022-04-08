@@ -94,9 +94,9 @@ const FlexLayout = () => {
   if (error) {
     console.log(`error`, error);
   }
-  if (isLoading) {
-    return <div>Loading ....</div>;
-  }
+  // if (isLoading) {
+  //   return <div>Loading ....</div>;
+  // }
 
   return (
     <Router>

@@ -4,7 +4,7 @@ import React, { useCallback, useState } from "react";
 const GeneratorMethod = () => {
   let index = 0;
   function* genMethod() {
-    while (true) yield index++;
+    while (index <= 10) yield index++;
   }
 
   const [genVal, setGenVal] = useState(0);
@@ -18,7 +18,8 @@ const GeneratorMethod = () => {
   return (
     <>
       <Button onClick={handleNext}>Next</Button>
-      <Text>{genVal}</Text>
+      <Text> counter will only yield 10 times </Text>
+      <Text> See console for explanation </Text>
     </>
   );
 };

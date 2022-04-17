@@ -7,8 +7,10 @@ import LayoutEffect from "./LayoutEffect";
 import MemoHook from "./MemoHook";
 import ReducerHook from "./ReducerHook";
 import RefHook from "./RefHook";
+import UseEffect from "./UseEffect.js";
 
 const hooks = [
+  "useEffect",
   "useCallBack",
   "useMemo",
   "useContextHook",
@@ -44,6 +46,7 @@ const ReactHooks = () => {
           </Button>
         ))}
       </HStack>
+      {selectedHook === "useEffect" && <UseEffect />}
       {selectedHook === "useReducer" && <ReducerHook />}
       {selectedHook === "useMemo" && <MemoHook />}
       {selectedHook === "useRef" && <RefHook />}

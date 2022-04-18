@@ -19,6 +19,7 @@ import MapComponent from "./components/map";
 import AutoCompleteField from "./components/autoComplete";
 import MethodImplementations from "./components/MethodImplementations";
 import { useEffect } from "react";
+import Animations from "./components/animations";
 
 const theme = extendTheme({
   config: {
@@ -45,6 +46,7 @@ function App() {
     // { label: "Observables", href: "/observable" },
     { label: "Map", href: "/map" },
     { label: "Autocomplete", href: "/autocomplete" },
+    { label: "Animations", href: "/animations" },
   ];
   const queryClient = new QueryClient();
 
@@ -76,6 +78,7 @@ function App() {
                 <Route exact path="/react-hooks" component={ReactHooks} />
                 <Route exact path="/observable" component={Observables} />
                 <Route exact path="/map" component={MapComponent} />
+                <Route exact path="/animations" component={Animations} />
                 <Route
                   exact
                   path="/methodImplementations"

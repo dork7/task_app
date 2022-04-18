@@ -1,40 +1,25 @@
-import { useEffect, useState, useRef, useCallback } from "react";
-
-import ReactMapGL, {
-  FlyToInterpolator,
-  Marker,
-  Popup,
-  FullscreenControl,
-} from "react-map-gl";
-import axios from "axios";
-import _, { filter } from "lodash";
-import {
-  Badge,
-  Box,
-  FormErrorMessage,
-  HStack,
-  Table,
-  Tbody,
-  Td,
-  Text,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
-import { IoMdAdd } from "react-icons/io";
+import { Badge, Box, Text } from "@chakra-ui/react";
+import { useCallback, useRef, useState } from "react";
 // import {  Table } from "components/Others";
 import GooglePlacesAutocomplete, {
   geocodeByAddress,
   getLatLng,
 } from "react-google-places-autocomplete";
-
+import ReactMapGL, { FlyToInterpolator, FullscreenControl } from "react-map-gl";
 import {
-  Editor,
   DrawPolygonMode,
   EditingMode,
-  DrawLineStringMode,
+  Editor,
   RENDER_STATE,
 } from "react-map-gl-draw";
+
+import "mapbox-gl/dist/mapbox-gl.css";
+import mapboxgl from "mapbox-gl";
+
+// eslint-disable-next-line import/no-webpack-loader-syntax
+/* eslint-disable */
+mapboxgl.workerClass =
+  require("worker-loader!mapbox-gl/dist/mapbox-gl-csp-worker").default;
 
 function getEditHandleStyle({ feature, state }) {
   switch (state) {

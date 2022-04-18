@@ -66,7 +66,8 @@ function App() {
               {/* <Navbar /> */}
               <Dashboard pages={pages} />
               <Switch>
-                <Route exact path="/" component={Home} />
+                {/* <Route exact path="/" component={Home} /> */}
+                <Route exact path="/" render={(props) => <Home {...props} />} />
                 <Route exact path="/chat" component={ChatLayout} />
                 <Route exact path="/todos" component={FlexLayout} />
                 <Route exact path="/axios" component={AxiosLayout} />

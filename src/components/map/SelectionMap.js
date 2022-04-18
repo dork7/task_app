@@ -219,7 +219,7 @@ const SelectionMap = () => {
           <Badge>{JSON.stringify(polygonData[0]?.geometry.type)}</Badge>
           <Box>
             {polygonData[0]?.geometry.coordinates[0].map((coor) => (
-              <Badge>{coor}}</Badge>
+              <Badge>{coor}</Badge>
             ))}
           </Box>
         </Box>

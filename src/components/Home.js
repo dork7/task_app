@@ -13,7 +13,7 @@ const Home = (props) => {
       // height="100%"
       p={4}
     >
-      <Text>React demo app</Text>
+      <Text>React demo app !!!</Text>
       <Text>Props passed form APP {JSON.stringify(props)}</Text>
     </Flex>
   );

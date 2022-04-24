@@ -14,20 +14,14 @@ import {
   TypingIndicator,
 } from "@pubnub/react-chat-components";
 import { Box, Stack, HStack, Text, Button, Flex } from "@chakra-ui/react";
+import { Link } from "react-router-dom";
 
-// const usersList = ["employee1", "employee2", "customer1", "customer2"];
-const usersList = [
-  "615d882993fafc349410a4a6",
-  "617f8efbc44532002ebe71c2",
-  "617f8ffbc44532002ebe71c4",
-];
-
-const customerList = ["620a43652af003ef8069f6f9"];
+const usersList = ["channel_1", "channel_2"];
 
 const ChatLayout = () => {
   const pubnub = usePubNub();
   const [currentChannel, setCurrentChannel] = useState(usersList[0]);
-  const [channels, setChannels] = useState([...usersList, ...customerList]);
+  const [channels, setChannels] = useState(usersList);
 
   useEffect(() => {
     // add user meta info
@@ -183,6 +177,18 @@ const ChatLayout = () => {
   };
   return (
     <Box p={4}>
+      <HStack p={2}>
+        <Link to={"/chat"}>
+          <Button variant="solid" colorScheme="teal">
+            Sender
+          </Button>
+        </Link>
+        <Link to={{ pathname: "/receiver" }} target="_blank">
+          <Button variant="solid" colorScheme="teal">
+            Receiver
+          </Button>
+        </Link>
+      </HStack>
       <Text>Talking to {currentChannel} </Text>
       <HStack p={2}>
         <Button variant="solid" colorScheme="teal" onClick={unSub}>
@@ -217,22 +223,7 @@ const ChatLayout = () => {
           );
         })}
       </HStack>
-      <Text>Customers</Text>
-      <HStack p={2}>
-        {customerList.map((user) => {
-          return (
-            <Button
-              w="100%"
-              variant="outline"
-              id={user}
-              onClick={(e) => handleClick(e)}
-              colorScheme="red"
-            >
-              {user}
-            </Button>
-          );
-        })}
-      </HStack>
+
       <Box>
         <Chat {...{ currentChannel, theme, users }}>
           <MessageList

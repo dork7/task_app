@@ -40,7 +40,7 @@ function App() {
     { label: "Methods", href: "/methodImplementations" },
     { label: "Axios", href: "/axios" },
     { label: "Chat", href: "/chat" },
-    { label: "Receiver", href: "/receiver" },
+    // { label: "Receiver", href: "/receiver" },
     // { label: "NodeMailer", href: "/nodemailer" },
     { label: "ReactHooks", href: "/react-hooks" },
     // { label: "Observables", href: "/observable" },

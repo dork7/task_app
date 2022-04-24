@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from "react";
-import { usePubNub } from "pubnub-react";
 import { useChannelMembers, useUsers } from "@pubnub/react-chat-components";
+import { usePubNub } from "pubnub-react";
+import React, { useEffect, useState } from "react";
 
 const PubNubtest = () => {
   const pubnub = usePubNub();
   const channelId = "lol";
   const [channels] = useState([channelId]);
-  const [currentLoc, setCurrentLoc] = useState({ latitude: -1, longitude: -1 });
-  const [numUsers, setNumUsers] = useState(0);
-  const [username, setUsername] = useState("Employee 1");
-  const [fixedOnUUID, setFixedOnUUID] = useState("");
+  // const [currentLoc, setCurrentLoc] = useState({ latitude: -1, longitude: -1 });
+  // const [numUsers, setNumUsers] = useState(0);
+  // const [username, setUsername] = useState("Employee 1");
+  // const [fixedOnUUID, setFixedOnUUID] = useState("");
   //   const [users, setUsers] = useState(new Map());
-  const [isFocused, setIsFocused] = useState(false);
+  // const [isFocused, setIsFocused] = useState(false);
   //   const [usersArray, setUsersArray] = useState(Array.from(users.values()));
   const [users] = useUsers();
 

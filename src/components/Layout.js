@@ -1,6 +1,5 @@
 import { Flex, Stack, Text } from "@chakra-ui/react";
 import React, { useEffect, useReducer } from "react";
-import { isError } from "react-query";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import ACTIONS from "../Actions/Actions";
 import { useFetchData } from "../hooks/useFetchData";
@@ -8,7 +7,6 @@ import reducer from "../reducers/tasksReducer";
 import About from "./About";
 import CompletedTasks from "./CompletedTasks";
 import Footer from "./Footer";
-import QueryFetch from "./QueryFetch";
 import Tasks from "./Tasks";
 import TextComponent from "./TextComponent";
 

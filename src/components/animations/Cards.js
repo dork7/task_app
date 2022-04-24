@@ -1,14 +1,7 @@
-import React from "react";
-import {
-  chakra,
-  Grid,
-  Box,
-  Button,
-  Flex,
-  useColorModeValue,
-} from "@chakra-ui/react";
-import Card from "./Card";
+import { Grid } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+import React from "react";
+import Card from "./Card";
 
 const Cards = () => {
   return (

@@ -1,17 +1,12 @@
-import React, { useState } from "react";
-
-import PubNub from "pubnub";
-import { PubNubProvider } from "pubnub-react";
+import { Box, Button, HStack, Text } from "@chakra-ui/react";
 import {
   Chat,
-  MessageList,
-  MessageInput,
-  ChannelList,
   MemberList,
-  useChannels,
+  MessageInput,
+  MessageList,
   useChannelMembers,
 } from "@pubnub/react-chat-components";
-import { Box, Stack, HStack, Text, Button } from "@chakra-ui/react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const usersList = ["channel_1", "channel_2"];

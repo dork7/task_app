@@ -1,4 +1,4 @@
-import { Flex, Text, useColorMode } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import React from "react";
 
 const Home = (props) => {

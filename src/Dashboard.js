@@ -1,9 +1,9 @@
 import { Button } from "@chakra-ui/button";
+import { MoonIcon, SunIcon } from "@chakra-ui/icons";
 import { Center, HStack } from "@chakra-ui/layout";
 import { Icon, useColorMode } from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
-import { SunIcon, MoonIcon, WarningIcon } from "@chakra-ui/icons";
 const Dashboard = ({ pages }) => {
   const { colorMode, toggleColorMode } = useColorMode();
 

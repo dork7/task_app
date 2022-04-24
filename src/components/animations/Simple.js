@@ -1,7 +1,6 @@
-import React from "react";
+import { HStack, Stack, Text } from "@chakra-ui/react";
 import { motion, useViewportScroll } from "framer-motion";
-import { Button, Stack, Flex, Grid, HStack, Text } from "@chakra-ui/react";
-import Card from "./Card";
+import React from "react";
 
 const Simple = () => {
   const container = {

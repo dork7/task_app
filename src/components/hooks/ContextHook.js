@@ -1,5 +1,5 @@
 import { Stack, Text } from "@chakra-ui/react";
-import React, { useContext, useEffect } from "react";
+import React, { useEffect } from "react";
 import { UserDataProvider, useUserContext } from "./ContextProvider";
 
 const ContextHook = () => {

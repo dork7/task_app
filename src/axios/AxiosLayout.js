@@ -1,18 +1,16 @@
-import React, { useState, useEffect } from "react";
 import {
-  Flex,
-  Stack,
-  Text,
-  Button,
-  HStack,
-  Box,
   Accordion,
-  AccordionItem,
   AccordionButton,
-  AccordionPanel,
   AccordionIcon,
+  AccordionItem,
+  AccordionPanel,
+  Box,
+  Button,
+  Flex,
+  HStack,
 } from "@chakra-ui/react";
 import axios from "axios";
+import React, { useState } from "react";
 
 axios.interceptors.request.use(
   (config) => {

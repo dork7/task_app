@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { Flex, FormControl, FormLabel, Stack } from "@chakra-ui/react";
 import {
   AutoComplete,
   AutoCompleteCreatable,
@@ -7,15 +7,7 @@ import {
   AutoCompleteList,
   AutoCompleteTag,
 } from "@choc-ui/chakra-autocomplete";
-import {
-  Flex,
-  Stack,
-  Text,
-  FormControl,
-  FormHelperText,
-  FormLabel,
-  HStack,
-} from "@chakra-ui/react";
+import React, { useState } from "react";
 
 const AutoCompleteField = () => {
   const initialData = ["example value 1", "val 2"];

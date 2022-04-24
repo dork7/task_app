@@ -1,5 +1,5 @@
 import { Button, Text } from "@chakra-ui/react";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 
 const GeneratorMethod = () => {
   let index = 0;

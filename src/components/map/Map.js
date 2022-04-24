@@ -1,14 +1,13 @@
-import React, { useCallback, useState } from "react";
-import ReactMapGL, { Marker } from "react-map-gl";
+import { Badge, Box, Text } from "@chakra-ui/react";
 import "mapbox-gl/dist/mapbox-gl.css";
-import mapboxgl from "mapbox-gl";
-import { Box, Text, Badge } from "@chakra-ui/react";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import React, { useCallback, useState } from "react";
 import GooglePlacesAutocomplete, {
   geocodeByAddress,
-  getLatLng,
   geocodeByLatLng,
+  getLatLng,
 } from "react-google-places-autocomplete";
+import { FaMapMarkerAlt } from "react-icons/fa";
+import ReactMapGL, { Marker } from "react-map-gl";
 
 const mapBoxAccessToken =
   "pk.eyJ1IjoieGVlNDI1IiwiYSI6ImNsMHdmZGZoczEwdWQzZG4xOWwyNWRkMW0ifQ.pGnLWGI9tWOTNcqdt3HxOw";

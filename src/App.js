@@ -1,25 +1,23 @@
-import { ChakraProvider, Heading, extendTheme } from "@chakra-ui/react";
-import AxiosLayout from "./axios/AxiosLayout";
-import FlexLayout from "./components/Layout";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import ChatLayout from "./components/chat/ChatLayout";
-import Receiver from "./components/chat/Receiver";
-
+import { ChakraProvider, extendTheme } from "@chakra-ui/react";
 import PubNub from "pubnub";
 import { PubNubProvider } from "pubnub-react";
-import PubNubtest from "./components/chat/PubNubtest";
+import { useEffect } from "react";
+import { QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AxiosLayout from "./axios/AxiosLayout";
+import Animations from "./components/animations";
+import AutoCompleteField from "./components/autoComplete";
+import ChatLayout from "./components/chat/ChatLayout";
+import Receiver from "./components/chat/Receiver";
+import Home from "./components/Home";
+import ReactHooks from "./components/hooks";
+import FlexLayout from "./components/Layout";
+import MapComponent from "./components/map";
+import MethodImplementations from "./components/MethodImplementations";
+import Observables from "./components/observables";
 import Dashboard from "./Dashboard";
 import MailSender from "./nodemailer/MailSender";
-import ReactHooks from "./components/hooks";
-import Observables from "./components/observables";
-import Home from "./components/Home";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { QueryClient, QueryClientProvider } from "react-query";
-import MapComponent from "./components/map";
-import AutoCompleteField from "./components/autoComplete";
-import MethodImplementations from "./components/MethodImplementations";
-import { useEffect } from "react";
-import Animations from "./components/animations";
 
 const theme = extendTheme({
   config: {
@@ -37,7 +35,7 @@ function App() {
   const pages = [
     { label: "DashBoard", href: "/" },
     { label: "Todo", href: "/todos" },
-    { label: "Methods", href: "/methodImplementations" },
+    // { label: "Methods", href: "/methodImplementations" },
     { label: "Axios", href: "/axios" },
     { label: "Chat", href: "/chat" },
     // { label: "Receiver", href: "/receiver" },

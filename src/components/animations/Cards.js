@@ -22,6 +22,7 @@ const Cards = () => {
                     transition: { duration: 1 },
                   }}
                   whileTap={{ scale: 0.9 }}
+                  key={idx}
                 >
                   <Card />
                 </motion.div>

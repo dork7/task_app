@@ -19,7 +19,7 @@ const Animations = () => {
         // height="100%"
         p={4}
       >
-        <Text alignText="center">Animations</Text>
+        <Text>Animations</Text>
         <HStack p={4}>
           {animations.map((item) => (
             <Button
@@ -28,7 +28,7 @@ const Animations = () => {
                 bg: "black",
                 color: "white",
               }}
-              key={item}
+              key={`btn-${item}`}
               onClick={() => setAnimationSelected(item)}
             >
               {item}

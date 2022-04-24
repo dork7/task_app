@@ -44,7 +44,7 @@
     "start": "set PORT=1122 && react-scripts start",
     "serve": "node express-server",
     "build": "react-scripts build",
-    "test": "react-scripts test",
+    "test": "cypress open",
     "eject": "react-scripts eject",
     "server": "json-server --watch db.json --port 7878"
   },
@@ -65,5 +65,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^9.5.4"
   }
 }

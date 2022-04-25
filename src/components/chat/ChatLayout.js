@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Stack, Text } from "@chakra-ui/react";
 import {
   Chat,
   MessageInput,
@@ -67,9 +67,6 @@ const ChatLayout = () => {
       includeState: true,
     });
   const [users] = useUsers();
-  console.log(`users`, users);
-  // console.log(`channels`, channels);
-  // console.log(`members`, members);
 
   const handleClick = (e) => {
     // console.log(`currentChannel`, currentChannel);
@@ -170,6 +167,7 @@ const ChatLayout = () => {
   const getMeta = async () => {
     console.log("meta", await pubnub.objects.getAllUUIDMetadata());
   };
+  const [inputVal, setInputVal] = useState("");
   return (
     <Box p={4}>
       <HStack p={2}>
@@ -184,6 +182,22 @@ const ChatLayout = () => {
           </Button>
         </Link>
       </HStack>
+      <Stack p={2}>
+        <Input
+          placeholder="Enter Id"
+          onChange={(e) => setInputVal(e.target.value)}
+        />
+        <Button
+          variant="solid"
+          colorScheme="teal"
+          onClick={() => {
+            setChannels((prevVal) => [...prevVal, inputVal]);
+            setCurrentChannel(inputVal);
+          }}
+        >
+          Connect
+        </Button>
+      </Stack>
       <Text>Talking to {currentChannel} </Text>
       <HStack p={2}>
         <Button variant="solid" colorScheme="teal" onClick={unSub}>

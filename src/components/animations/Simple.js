@@ -1,6 +1,6 @@
-import { HStack, Stack, Text } from "@chakra-ui/react";
-import { motion, useViewportScroll } from "framer-motion";
-import React from "react";
+import { Button, HStack, Stack, Text } from '@chakra-ui/react';
+import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
 
 const Simple = () => {
   const container = {
@@ -18,6 +18,7 @@ const Simple = () => {
     show: { opacity: 1 },
   };
   const { scrollYProgress } = useViewportScroll();
+  const [toggleView, setToggleView] = useState(true);
   return (
     <>
       <HStack gap={10}>
@@ -27,9 +28,9 @@ const Simple = () => {
               <motion.div
                 initial="hidden"
                 animate={{ y: idx * 10 }}
-                transition={{ delay: 1, type: "spring", stiffness: 100 }}
+                transition={{ delay: 1, type: 'spring', stiffness: 100 }}
               >
-                {" "}
+                {' '}
                 <motion.div whileHover={{ scale: 1.2 }}>
                   <Text variants={item}>lorem text</Text>
                 </motion.div>
@@ -44,6 +45,25 @@ const Simple = () => {
           })}
         </motion.ul>
       </HStack>
+
+      <Stack pt={12}>
+        <Button onClick={() => setToggleView(!toggleView)}>Toggle</Button>
+        <AnimatePresence>
+          {toggleView && (
+            <motion.p1
+              exit={{
+                opacity: 0,
+              }}
+              transition={{
+                delay: 0.2,
+                duration: 1,
+              }}
+            >
+              Hello, example of exit animation
+            </motion.p1>
+          )}
+        </AnimatePresence>
+      </Stack>
     </>
   );
 };

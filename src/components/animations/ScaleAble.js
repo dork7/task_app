@@ -1,12 +1,12 @@
-import { useColorMode } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import React, { useState } from "react";
-import "./styles.css";
+import { useColorMode } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import './styles.css';
 
 const ScaleAble = () => {
   const [isOpen, setIsOpen] = useState(false);
   const { colorMode, toggleColorMode } = useColorMode();
-  console.log("colorMode", colorMode);
+  console.log('colorMode', colorMode);
 
   return (
     <motion.div

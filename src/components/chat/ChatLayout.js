@@ -1,4 +1,4 @@
-import { Box, Button, HStack, Input, Stack, Text } from "@chakra-ui/react";
+import { Box, Button, HStack, Input, Stack, Text } from '@chakra-ui/react';
 import {
   Chat,
   MessageInput,
@@ -6,12 +6,14 @@ import {
   TypingIndicator,
   useChannelMembers,
   useUsers,
-} from "@pubnub/react-chat-components";
-import { usePubNub } from "pubnub-react";
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+} from '@pubnub/react-chat-components';
+import { usePubNub } from 'pubnub-react';
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { motion, useViewportScroll } from 'framer-motion';
+import { useMainAnimation } from '../animations/useMainAnimation';
 
-const usersList = ["channel_1", "channel_2"];
+const usersList = ['channel_1', 'channel_2'];
 
 const ChatLayout = () => {
   const pubnub = usePubNub();
@@ -60,10 +62,10 @@ const ChatLayout = () => {
   }, []);
 
   // const currentChannel = "myCurrentChannel";
-  const theme = "light";
+  const theme = 'light';
   const [members, fetchPage, refetchChannelMembers, total, e: error] =
     useChannelMembers({
-      channel: "myCurrentChannel",
+      channel: 'myCurrentChannel',
       includeState: true,
     });
   const [users] = useUsers();
@@ -77,8 +79,8 @@ const ChatLayout = () => {
     pubnub.setState(
       {
         state: {
-          mood: "online",
-          status: "online",
+          mood: 'online',
+          status: 'online',
         },
         channels: [e.target.id],
       },
@@ -95,7 +97,7 @@ const ChatLayout = () => {
     console.log(`event`, event);
     setCurrentChannel(event.channel);
     const message = event.message;
-    if (typeof message === "string" || message.hasOwnProperty("text")) {
+    if (typeof message === 'string' || message.hasOwnProperty('text')) {
       const text = message.text || message;
       // console.log(`text`, text);
       addMessage((messages) => [...messages, text]);
@@ -133,7 +135,7 @@ const ChatLayout = () => {
     pubnub
       .messageCounts({
         channels: channels,
-        channelTimetokens: ["15518041524300251"],
+        channelTimetokens: ['15518041524300251'],
       })
       .then((response) => {
         console.log(response);
@@ -149,104 +151,113 @@ const ChatLayout = () => {
       const result = await pubnub.objects.getAllUUIDMetadata();
       console.log(`result`, result);
     } catch (status) {
-      console.log("operation failed w/ error:", status);
+      console.log('operation failed w/ error:', status);
     }
   };
   const setMeta = (obj) => {
     pubnub.objects.setUUIDMetadata({
       data: {
-        name: "dork Doe",
-        email: "dorkdoe@pubnub.com",
+        name: 'dork Doe',
+        email: 'dorkdoe@pubnub.com',
         custom: {
-          nickname: "Mr. dork",
+          nickname: 'Mr. dork',
         },
       },
     });
   };
 
   const getMeta = async () => {
-    console.log("meta", await pubnub.objects.getAllUUIDMetadata());
+    console.log('meta', await pubnub.objects.getAllUUIDMetadata());
   };
-  const [inputVal, setInputVal] = useState("");
-  return (
-    <Box p={4}>
-      <HStack p={2}>
-        <Link to={"/chat"}>
-          <Button variant="solid" colorScheme="teal">
-            Sender
-          </Button>
-        </Link>
-        <Link to={{ pathname: "/receiver" }} target="_blank">
-          <Button variant="solid" colorScheme="teal">
-            Receiver
-          </Button>
-        </Link>
-      </HStack>
-      <Stack p={2}>
-        <Input
-          placeholder="Enter Id"
-          onChange={(e) => setInputVal(e.target.value)}
-        />
-        <Button
-          variant="solid"
-          colorScheme="teal"
-          onClick={() => {
-            setChannels((prevVal) => [...prevVal, inputVal]);
-            setCurrentChannel(inputVal);
-          }}
-        >
-          Connect
-        </Button>
-      </Stack>
-      <Text>Talking to {currentChannel} </Text>
-      <HStack p={2}>
-        <Button variant="solid" colorScheme="teal" onClick={unSub}>
-          unSub
-        </Button>
-        <Button variant="solid" colorScheme="teal" onClick={getMessageCount}>
-          Get count
-        </Button>
-        <Button variant="solid" colorScheme="teal" onClick={getUUIDs}>
-          Get UUIDs{" "}
-        </Button>
-        <Button variant="solid" colorScheme="teal" onClick={setMeta}>
-          Set metadata
-        </Button>
-        <Button variant="solid" colorScheme="teal" onClick={getMeta}>
-          Get metadata
-        </Button>
-      </HStack>
-      <Text>Employees</Text>
-      <HStack p={2}>
-        {usersList.map((user) => {
-          return (
-            <Button
-              w="100%"
-              variant="outline"
-              id={user}
-              onClick={(e) => handleClick(e)}
-              colorScheme="red"
-            >
-              {user}
-            </Button>
-          );
-        })}
-      </HStack>
+  const [inputVal, setInputVal] = useState('');
+  const mainAnimation = useMainAnimation();
 
-      <Box>
-        <Chat {...{ currentChannel, theme, users }}>
-          <MessageList
-            enableReactions
-            fetchMessages={5}
-            onScroll={function noRefCheck() {}}
+  return (
+    <motion.div
+      variants={mainAnimation}
+      initial="hidden"
+      animate="visible"
+      exit="exit"
+    >
+      <Box p={4}>
+        <HStack p={2}>
+          <Link to={'/chat'}>
+            <Button variant="solid" colorScheme="teal">
+              Sender
+            </Button>
+          </Link>
+          <Link to={{ pathname: '/receiver' }} target="_blank">
+            <Button variant="solid" colorScheme="teal">
+              Receiver
+            </Button>
+          </Link>
+        </HStack>
+        <Stack p={2}>
+          <Input
+            placeholder="Enter Id"
+            onChange={(e) => setInputVal(e.target.value)}
+          />
+          <Button
+            variant="solid"
+            colorScheme="teal"
+            onClick={() => {
+              setChannels((prevVal) => [...prevVal, inputVal]);
+              setCurrentChannel(inputVal);
+            }}
           >
-            {" "}
-            <TypingIndicator />
-          </MessageList>
-          <MessageInput typingIndicator senderInfo fileUpload="image" />
-        </Chat>
-      </Box>
-    </Box>
+            Connect
+          </Button>
+        </Stack>
+        <Text>Talking to {currentChannel} </Text>
+        <HStack p={2}>
+          <Button variant="solid" colorScheme="teal" onClick={unSub}>
+            unSub
+          </Button>
+          <Button variant="solid" colorScheme="teal" onClick={getMessageCount}>
+            Get count
+          </Button>
+          <Button variant="solid" colorScheme="teal" onClick={getUUIDs}>
+            Get UUIDs{' '}
+          </Button>
+          <Button variant="solid" colorScheme="teal" onClick={setMeta}>
+            Set metadata
+          </Button>
+          <Button variant="solid" colorScheme="teal" onClick={getMeta}>
+            Get metadata
+          </Button>
+        </HStack>
+        <Text>Employees</Text>
+        <HStack p={2}>
+          {usersList.map((user) => {
+            return (
+              <Button
+                w="100%"
+                variant="outline"
+                id={user}
+                onClick={(e) => handleClick(e)}
+                colorScheme="red"
+              >
+                {user}
+              </Button>
+            );
+          })}
+        </HStack>
+
+        <Box>
+          <Chat {...{ currentChannel, theme, users }}>
+            <MessageList
+              enableReactions
+              fetchMessages={5}
+              onScroll={function noRefCheck() {}}
+            >
+              {' '}
+              <TypingIndicator />
+            </MessageList>
+            <MessageInput typingIndicator senderInfo fileUpload="image" />
+          </Chat>
+        </Box>
+      </Box>{' '}
+    </motion.div>
   );
 };
 

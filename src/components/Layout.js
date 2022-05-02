@@ -1,26 +1,28 @@
-import { Flex, Stack, Text } from "@chakra-ui/react";
-import React, { useEffect, useReducer } from "react";
-import { BrowserRouter as Router, Route } from "react-router-dom";
-import ACTIONS from "../Actions/Actions";
-import { useFetchData } from "../hooks/useFetchData";
-import reducer from "../reducers/tasksReducer";
-import About from "./About";
-import CompletedTasks from "./CompletedTasks";
-import Footer from "./Footer";
-import Tasks from "./Tasks";
-import TextComponent from "./TextComponent";
+import { Flex, Stack, Text } from '@chakra-ui/react';
+import React, { useEffect, useReducer } from 'react';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
+import ACTIONS from '../Actions/Actions';
+import { useFetchData } from '../hooks/useFetchData';
+import reducer from '../reducers/tasksReducer';
+import About from './About';
+import CompletedTasks from './CompletedTasks';
+import Footer from './Footer';
+import Tasks from './Tasks';
+import TextComponent from './TextComponent';
+import { motion, useViewportScroll } from 'framer-motion';
+import { useMainAnimation } from './animations/useMainAnimation';
 
 const FlexLayout = () => {
   const [state, dispatch] = useReducer(reducer, []);
 
-  const URL = "http://localhost:7878/tasks";
-  const key = "tasks";
+  const URL = 'http://localhost:7878/tasks';
+  const key = 'tasks';
   const enableFetch = false;
   const { data, error, isLoading } = useFetchData(key, URL, enableFetch);
 
   // fetch tasks
   const fetchTasksReq = async () => {
-    const res = await fetch("http://localhost:7878/tasks");
+    const res = await fetch('http://localhost:7878/tasks');
     const data = await res.json();
     return data;
   };
@@ -34,18 +36,18 @@ const FlexLayout = () => {
   // delete request
   const deleteTaskReq = async (id) => {
     const prev_task = await fetchTaskByIdReq(id);
-    addTaskReq(prev_task, "deleted");
+    addTaskReq(prev_task, 'deleted');
     await fetch(`http://localhost:7878/tasks/${id}`, {
-      method: "DELETE",
+      method: 'DELETE',
     });
   };
 
   // add request
-  const addTaskReq = async (task, table = "tasks") => {
+  const addTaskReq = async (task, table = 'tasks') => {
     console.log(`task , table`, task, table);
     const res = await fetch(`http://localhost:7878/${table}`, {
-      method: "POST",
-      headers: { "Content-type": "application/json" },
+      method: 'POST',
+      headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(task),
     });
     console.log(res);
@@ -75,8 +77,8 @@ const FlexLayout = () => {
     const task = await fetchTaskByIdReq(id);
     const updTask = { ...task, done: !task.done };
     const res = await fetch(`http://localhost:7878/tasks/${id}`, {
-      method: "PUT",
-      headers: { "Content-type": "application/json" },
+      method: 'PUT',
+      headers: { 'Content-type': 'application/json' },
       body: JSON.stringify(updTask),
     });
   };
@@ -97,66 +99,73 @@ const FlexLayout = () => {
   //   return <div>Loading ....</div>;
   // }
   useEffect(() => {
-    console.log("state", state);
+    console.log('state', state);
   }, []);
+  const mainAnimation = useMainAnimation();
 
   return (
     <Router>
-      <Flex
-        alignItems="flex-start"
-        justifyContent="center"
-        // backgroundColor="gray.700"
-        // grow={true}
-        // height="100%"
-        w="full"
+      <motion.div
+        variants={mainAnimation}
+        initial="hidden"
+        animate="visible"
+        exit="exit"
       >
-        <Stack alignContent="center" m={8} w="100%">
-          <Text fontSize="1xl">Tasks List</Text>
-          {/* {tasks.length > 0 ? (
+        <Flex
+          alignItems="flex-start"
+          justifyContent="center"
+          // backgroundColor="gray.700"
+          // grow={true}
+          // height="100%"
+          w="full"
+        >
+          <Stack alignContent="center" m={8} w="100%">
+            <Text fontSize="1xl">Tasks List</Text>
+            {/* {tasks.length > 0 ? (
             <Tasks tasks={tasks} onDelete={deleteTask} setDone={setDoneState} />
           ) : (
             <h1>No task</h1>
           )}
           <TextComponent variant="filled" btnText="Add" onAdd={addTaskInList} /> */}
-          {/* <MButton variant="" text="Add" onClick={onButtonClick}></MButton> */}
-          <Route
-            path="/todos"
-            exact
-            render={(props) => (
-              <>
-                {" "}
-                {console.log(state)}
-                {state?.length > 0 ? (
-                  <Tasks
-                    tasks={state}
-                    onDelete={deleteTask}
-                    setDone={setDoneState}
+            {/* <MButton variant="" text="Add" onClick={onButtonClick}></MButton> */}
+            <Route
+              path="/todos"
+              exact
+              render={(props) => (
+                <>
+                  {' '}
+                  {console.log(state)}
+                  {state?.length > 0 ? (
+                    <Tasks
+                      tasks={state}
+                      onDelete={deleteTask}
+                      setDone={setDoneState}
+                    />
+                  ) : (
+                    <h1>No task</h1>
+                  )}
+                  <TextComponent
+                    variant="filled"
+                    btnText="Add"
+                    onAdd={addTaskInList}
                   />
-                ) : (
-                  <h1>No task</h1>
-                )}
-                <TextComponent
-                  variant="filled"
-                  btnText="Add"
-                  onAdd={addTaskInList}
-                />
-              </>
-            )}
-          />
-          <Route exact path="/about" component={About} />
-          <Footer />
-          {/* <QueryFetch /> */}
-        </Stack>
+                </>
+              )}
+            />
+            <Route exact path="/about" component={About} />
+            <Footer />
+            {/* <QueryFetch /> */}
+          </Stack>
 
-        <Stack m={8} alignContent="center" w="100%">
-          <Text fontSize="1xl">Completed Tasks</Text>
-          <CompletedTasks
-            tasks={state}
-            onDelete={deleteTask}
-            setDone={setDoneState}
-          />
-        </Stack>
-        {/* <Stack m={8} alignContent="center">
+          <Stack m={8} alignContent="center" w="100%">
+            <Text fontSize="1xl">Completed Tasks</Text>
+            <CompletedTasks
+              tasks={state}
+              onDelete={deleteTask}
+              setDone={setDoneState}
+            />
+          </Stack>
+          {/* <Stack m={8} alignContent="center">
           <Text fontSize="1xl">Deleted Tasks</Text>
           <CompletedTasks
             tasks={state}
@@ -164,7 +173,8 @@ const FlexLayout = () => {
             setDone={setDoneState}
           />
         </Stack> */}
-      </Flex>
+        </Flex>
+      </motion.div>
     </Router>
   );
 };

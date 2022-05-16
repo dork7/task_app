@@ -1,50 +1,52 @@
-import { ChakraProvider, extendTheme } from "@chakra-ui/react";
-import PubNub from "pubnub";
-import { PubNubProvider } from "pubnub-react";
-import { useEffect } from "react";
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import AxiosLayout from "./axios/AxiosLayout";
-import Animations from "./components/animations";
-import AutoCompleteField from "./components/autoComplete";
-import ChatLayout from "./components/chat/ChatLayout";
-import Receiver from "./components/chat/Receiver";
-import Home from "./components/Home";
-import ReactHooks from "./components/hooks";
-import FlexLayout from "./components/Layout";
-import MapComponent from "./components/map";
-import MethodImplementations from "./components/MethodImplementations";
-import Observables from "./components/observables";
-import Dashboard from "./Dashboard";
-import MailSender from "./nodemailer/MailSender";
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import PubNub from 'pubnub';
+import { PubNubProvider } from 'pubnub-react';
+import { useEffect } from 'react';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import AxiosLayout from './axios/AxiosLayout';
+import Animations from './components/animations';
+import AutoCompleteField from './components/autoComplete';
+import ChatLayout from './components/chat/ChatLayout';
+import Receiver from './components/chat/Receiver';
+import HOC from './components/higherOrderComponent';
+import Home from './components/Home';
+import ReactHooks from './components/hooks';
+import FlexLayout from './components/Layout';
+import MapComponent from './components/map';
+import MethodImplementations from './components/MethodImplementations';
+import Observables from './components/observables';
+import Dashboard from './Dashboard';
+import MailSender from './nodemailer/MailSender';
 
 const theme = extendTheme({
   config: {
     useSystemColorMode: true,
-    initialColorMode: "dark",
+    initialColorMode: 'dark',
   },
 });
 const pubnub = new PubNub({
-  publishKey: "pub-c-29e3bab4-1e93-49d9-a651-6c45d651cdbd",
-  subscribeKey: "sub-c-43971126-12c5-11ec-9d3c-1ae560ca2970",
+  publishKey: 'pub-c-29e3bab4-1e93-49d9-a651-6c45d651cdbd',
+  subscribeKey: 'sub-c-43971126-12c5-11ec-9d3c-1ae560ca2970',
   // uuid: "myUniqueUUID",
-  uuid: "dork",
+  uuid: 'dork',
 });
 function App() {
   const pages = [
-    { label: "DashBoard", href: "/" },
-    { label: "Todo", href: "/todos" },
+    { label: 'DashBoard', href: '/' },
+    { label: 'Todo', href: '/todos' },
     // { label: "Methods", href: "/methodImplementations" },
-    { label: "Axios", href: "/axios" },
-    { label: "Chat", href: "/chat" },
+    { label: 'Axios', href: '/axios' },
+    { label: 'Chat', href: '/chat' },
     // { label: "Receiver", href: "/receiver" },
     // { label: "NodeMailer", href: "/nodemailer" },
-    { label: "ReactHooks", href: "/react-hooks" },
+    { label: 'ReactHooks', href: '/react-hooks' },
     // { label: "Observables", href: "/observable" },
-    { label: "Map", href: "/map" },
-    { label: "Autocomplete", href: "/autocomplete" },
-    { label: "Animations", href: "/animations" },
+    { label: 'Map', href: '/map' },
+    { label: 'Autocomplete', href: '/autocomplete' },
+    { label: 'Animations', href: '/animations' },
+    { label: 'HOC', href: '/hoc' },
   ];
   const queryClient = new QueryClient();
 
@@ -77,6 +79,7 @@ function App() {
                 <Route exact path="/observable" component={Observables} />
                 <Route exact path="/map" component={MapComponent} />
                 <Route exact path="/animations" component={Animations} />
+                <Route exact path="/hoc" component={HOC} />
                 <Route
                   exact
                   path="/methodImplementations"

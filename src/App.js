@@ -4,13 +4,25 @@ import { PubNubProvider } from 'pubnub-react';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+<<<<<<< HEAD
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+=======
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  useLocation,
+} from 'react-router-dom';
+>>>>>>> 6b9be00b5998722ebd99273b8377ee1cd005eaa3
 import AxiosLayout from './axios/AxiosLayout';
 import Animations from './components/animations';
 import AutoCompleteField from './components/autoComplete';
 import ChatLayout from './components/chat/ChatLayout';
 import Receiver from './components/chat/Receiver';
+<<<<<<< HEAD
 import HOC from './components/higherOrderComponent';
+=======
+>>>>>>> 6b9be00b5998722ebd99273b8377ee1cd005eaa3
 import Home from './components/Home';
 import ReactHooks from './components/hooks';
 import FlexLayout from './components/Layout';
@@ -19,6 +31,10 @@ import MethodImplementations from './components/MethodImplementations';
 import Observables from './components/observables';
 import Dashboard from './Dashboard';
 import MailSender from './nodemailer/MailSender';
+<<<<<<< HEAD
+=======
+import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
+>>>>>>> 6b9be00b5998722ebd99273b8377ee1cd005eaa3
 
 const theme = extendTheme({
   config: {
@@ -50,6 +66,8 @@ function App() {
   ];
   const queryClient = new QueryClient();
 
+  const location = useLocation();
+
   useEffect(() => {
     // console.log("queryClient", queryClient?.queryCache?.queriesMap);
     // for (let keys in queryClient?.queryCache?.queriesMap) {
@@ -63,7 +81,11 @@ function App() {
       {/* <AxiosLayout /> */}
       <QueryClientProvider client={queryClient}>
         <PubNubProvider client={pubnub}>
-          <Router>
+          <motion.div
+            initial={{ opacity: 0, color: 'red', x: -300 }}
+            animate={{ opacity: 1, color: 'white', x: 0 }}
+            transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
+          >
             <div className="App">
               {/* <Navbar /> */}
               <Dashboard pages={pages} />
@@ -94,7 +116,7 @@ function App() {
               </Switch>
               {/* <Footer /> */}
             </div>
-          </Router>
+          </motion.div>
         </PubNubProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

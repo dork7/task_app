@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Center, HStack } from '@chakra-ui/layout';
+import { Center, Flex } from '@chakra-ui/layout';
 import { Icon, useColorMode } from '@chakra-ui/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
@@ -12,17 +12,17 @@ const Dashboard = ({ pages }) => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, color: 'red', y: -300 }}
-        animate={{ opacity: 1, color: 'white', y: 0 }}
-        transition={{ delay: 0.2, stiffness: 100 }}
+        initial={{ opacity: 0, color: 'red' }}
+        animate={{ opacity: 1, color: 'white' }}
+        // transition={{ delay: 0.2, stiffness: 100 }}
       >
         <Center>
-          <HStack p={4}>
+          <Flex wrap={'wrap'}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="100"
               height="100"
-              viewBox="0 0 222 222"
+              viewBox="0 0 400 350"
             >
               <motion.path
                 d="M40 40 L80 40 C80 40 80 80 40 80 C40 80 0 80 0 40 C0 40 0 0 40 0Z"
@@ -47,9 +47,9 @@ const Dashboard = ({ pages }) => {
             </svg>
             <motion.div
               className="box"
-              initial={{ offsetDistance: '0%', scale: 2.5 }}
-              animate={{ offsetDistance: '100%', scale: 1 }}
-              transition={transition}
+              initial={{ opacity: 0, scale: 2.5 }}
+              animate={{ opacity: 1, scale: 1 }}
+              // transition={transition}
             />
             {pages.map((page, idx) => (
               <Link key={`${page}-${idx}`} to={page.href}>
@@ -57,19 +57,22 @@ const Dashboard = ({ pages }) => {
                   key={`${page}-${idx}`}
                   variant="solid"
                   colorScheme="teal"
+                  m={2}
+                  flex="1"
+                  w={120}
                 >
                   {page.label}
                 </Button>{' '}
               </Link>
             ))}
-          </HStack>
-          <Button onClick={toggleColorMode}>
-            {colorMode === 'light' ? (
-              <Icon as={SunIcon} />
-            ) : (
-              <Icon as={MoonIcon} />
-            )}
-          </Button>
+            <Button onClick={toggleColorMode} m={2}>
+              {colorMode === 'light' ? (
+                <Icon as={SunIcon} />
+              ) : (
+                <Icon as={MoonIcon} />
+              )}
+            </Button>
+          </Flex>
         </Center>
       </motion.div>
     </>

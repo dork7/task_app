@@ -4,37 +4,27 @@ import { PubNubProvider } from 'pubnub-react';
 import { useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-<<<<<<< HEAD
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-=======
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   useLocation,
 } from 'react-router-dom';
->>>>>>> 6b9be00b5998722ebd99273b8377ee1cd005eaa3
 import AxiosLayout from './axios/AxiosLayout';
 import Animations from './components/animations';
 import AutoCompleteField from './components/autoComplete';
 import ChatLayout from './components/chat/ChatLayout';
 import Receiver from './components/chat/Receiver';
-<<<<<<< HEAD
-import HOC from './components/higherOrderComponent';
-=======
->>>>>>> 6b9be00b5998722ebd99273b8377ee1cd005eaa3
 import Home from './components/Home';
 import ReactHooks from './components/hooks';
 import FlexLayout from './components/Layout';
 import MapComponent from './components/map';
 import MethodImplementations from './components/MethodImplementations';
-import Observables from './components/observables';
 import Dashboard from './Dashboard';
 import MailSender from './nodemailer/MailSender';
-<<<<<<< HEAD
-=======
+import HOC from './components/higherOrderComponent';
 import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
->>>>>>> 6b9be00b5998722ebd99273b8377ee1cd005eaa3
+import Forms from './components/Forms';
 
 const theme = extendTheme({
   config: {
@@ -50,19 +40,20 @@ const pubnub = new PubNub({
 });
 function App() {
   const pages = [
-    { label: 'DashBoard', href: '/' },
-    { label: 'Todo', href: '/todos' },
+    { id: 'dashboard', label: 'DashBoard', href: '/' },
+    { id: 'todo', label: 'Todo', href: '/todos' },
     // { label: "Methods", href: "/methodImplementations" },
-    { label: 'Axios', href: '/axios' },
-    { label: 'Chat', href: '/chat' },
+    { id: 'axios', label: 'Axios', href: '/axios' },
+    { id: 'chat', label: 'Chat', href: '/chat' },
     // { label: "Receiver", href: "/receiver" },
     // { label: "NodeMailer", href: "/nodemailer" },
-    { label: 'ReactHooks', href: '/react-hooks' },
+    { id: 'reacthook', label: 'ReactHooks', href: '/react-hooks' },
     // { label: "Observables", href: "/observable" },
-    { label: 'Map', href: '/map' },
-    { label: 'Autocomplete', href: '/autocomplete' },
-    { label: 'Animations', href: '/animations' },
-    { label: 'HOC', href: '/hoc' },
+    { id: 'map', label: 'Map', href: '/map' },
+    { id: 'autocomplete', label: 'Autocomplete', href: '/autocomplete' },
+    { id: 'animations', label: 'Animations', href: '/animations' },
+    { id: 'hoc', label: 'HOC', href: '/hoc' },
+    { id: 'forms', label: 'Forms', href: '/forms' },
   ];
   const queryClient = new QueryClient();
 
@@ -82,9 +73,13 @@ function App() {
       <QueryClientProvider client={queryClient}>
         <PubNubProvider client={pubnub}>
           <motion.div
-            initial={{ opacity: 0, color: 'red', x: -300 }}
-            animate={{ opacity: 1, color: 'white', x: 0 }}
-            transition={{ delay: 0.4, type: 'spring', stiffness: 100 }}
+            initial={{ opacity: 0, color: 'red' }}
+            animate={{ opacity: 1, color: 'white' }}
+            transition={{
+              delay: 0.4,
+              type: 'spring',
+              stiffness: 100,
+            }}
           >
             <div className="App">
               {/* <Navbar /> */}
@@ -98,10 +93,11 @@ function App() {
                 <Route exact path="/receiver" component={Receiver} />
                 <Route exact path="/nodemailer" component={MailSender} />
                 <Route exact path="/react-hooks" component={ReactHooks} />
-                <Route exact path="/observable" component={Observables} />
+                {/* <Route exact path="/observable" component={Observables} /> */}
                 <Route exact path="/map" component={MapComponent} />
                 <Route exact path="/animations" component={Animations} />
                 <Route exact path="/hoc" component={HOC} />
+                <Route exact path="/forms" component={Forms} />
                 <Route
                   exact
                   path="/methodImplementations"

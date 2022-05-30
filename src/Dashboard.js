@@ -65,7 +65,7 @@ const Dashboard = ({ pages }) => {
                 </Button>{' '}
               </Link>
             ))}
-            <Button onClick={toggleColorMode} m={2}>
+            <Button id="color-mode" onClick={toggleColorMode} m={2}>
               {colorMode === 'light' ? (
                 <Icon as={SunIcon} />
               ) : (

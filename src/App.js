@@ -25,6 +25,7 @@ import MailSender from './nodemailer/MailSender';
 import HOC from './components/higherOrderComponent';
 import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
 import Forms from './components/Forms';
+import 'antd/dist/antd.css';
 
 const theme = extendTheme({
   config: {
@@ -74,7 +75,7 @@ function App() {
         <PubNubProvider client={pubnub}>
           <motion.div
             initial={{ opacity: 0, color: 'red' }}
-            animate={{ opacity: 1, color: 'white' }}
+            // animate={{ opacity: 1, color: 'white' }}
             transition={{
               delay: 0.4,
               type: 'spring',

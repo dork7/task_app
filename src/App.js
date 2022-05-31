@@ -26,13 +26,8 @@ import HOC from './components/higherOrderComponent';
 import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
 import Forms from './components/Forms';
 import 'antd/dist/antd.css';
+import theme from './config/theme';
 
-const theme = extendTheme({
-  config: {
-    useSystemColorMode: true,
-    initialColorMode: 'dark',
-  },
-});
 const pubnub = new PubNub({
   publishKey: 'pub-c-29e3bab4-1e93-49d9-a651-6c45d651cdbd',
   subscribeKey: 'sub-c-43971126-12c5-11ec-9d3c-1ae560ca2970',
@@ -68,13 +63,13 @@ function App() {
   }, []);
 
   return (
-    <ChakraProvider>
+    <ChakraProvider theme={theme}>
       {/* <FlexLayout /> */}
       {/* <AxiosLayout /> */}
       <QueryClientProvider client={queryClient}>
         <PubNubProvider client={pubnub}>
           <motion.div
-            initial={{ opacity: 0, color: 'red' }}
+            // initial={{ opacity: 0, color: 'red' }}
             // animate={{ opacity: 1, color: 'white' }}
             transition={{
               delay: 0.4,

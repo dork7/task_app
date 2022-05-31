@@ -5,11 +5,11 @@ const Home = (props) => {
   const homeAnimation = {
     hidden: {
       opacity: 0,
-      color: 'red',
+      // color: 'red',
     },
     visible: {
       opacity: 1,
-      color: 'white',
+      // color: 'white',
       transition: {
         delay: 1,
         duration: 2,

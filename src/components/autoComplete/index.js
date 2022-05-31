@@ -25,7 +25,7 @@ const AutoCompleteField = () => {
   return (
     <motion.div
       initial={{ opacity: 0, color: 'red', x: -300 }}
-      animate={{ opacity: 1, color: 'white', x: 0 }}
+      animate={{ opacity: 1, x: 0 }}
       transition={{ delay: 0.2, stiffness: 100 }}
     >
       <Flex

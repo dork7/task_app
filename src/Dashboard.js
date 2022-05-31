@@ -12,9 +12,9 @@ const Dashboard = ({ pages }) => {
   return (
     <>
       <motion.div
-        initial={{ opacity: 0, color: 'red' }}
-        animate={{ opacity: 1, color: 'white' }}
-        // transition={{ delay: 0.2, stiffness: 100 }}
+      // initial={{ opacity: 0, color: 'red' }}
+      // animate={{ opacity: 1, color: 'white' }}
+      // transition={{ delay: 0.2, stiffness: 100 }}
       >
         <Center>
           <Flex wrap={'wrap'}>

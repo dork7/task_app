@@ -11,8 +11,8 @@ const Home = (props) => {
       opacity: 1,
       // color: 'white',
       transition: {
-        delay: 1,
-        duration: 2,
+        // delay: 1,
+        duration: 1,
         type: 'spring',
         stiffness: 100,
       },
@@ -39,7 +39,7 @@ const Home = (props) => {
         animate="visible"
         exit="exit"
       >
-        <Flex wrap="wrap" flexDir={'column'} w={'70%'}>
+        <Flex className="blur-box" wrap="wrap" flexDir={'column'}>
           <Text>React demo app !!!</Text>
           <Text>Props passed form APP {JSON.stringify(props)}</Text>
         </Flex>

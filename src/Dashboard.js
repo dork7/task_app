@@ -2,13 +2,44 @@ import { Button } from '@chakra-ui/button';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Center, Flex } from '@chakra-ui/layout';
 import { Icon, useColorMode } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
 const Dashboard = ({ pages }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const transition = { duration: 4, yoyo: Infinity, ease: 'easeInOut' };
+
+  // get css element
+
+  const color = window
+    .getComputedStyle(document.body)
+    .getPropertyValue('--color-mode');
+
+  useEffect(() => {
+    if (colorMode === 'light') {
+      document.documentElement.style.setProperty(
+        '--blur-box-bg-color',
+        '#f5f5f5'
+      );
+      document.documentElement.style.setProperty(
+        '--blur-box-shadow-color',
+        '#9e9e9e'
+      );
+    } else {
+      document.documentElement.style.setProperty(
+        '--blur-box-bg-color',
+        '#293242'
+      );
+      document.documentElement.style.setProperty(
+        '--blur-box-shadow-color',
+        '#011628'
+      );
+    }
+  }, [colorMode]);
+
+  console.log('color', color);
+
   return (
     <>
       <motion.div

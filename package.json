@@ -47,6 +47,7 @@
     "serve": "node express-server",
     "build": "react-scripts build",
     "test": "cypress open",
+    "test_headless": "npx cypress run --headless",
     "eject": "react-scripts eject",
     "server": "json-server --watch db.json --port 7878"
   },

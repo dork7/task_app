@@ -30,8 +30,9 @@ const SimpleForm = () => {
 
   const formSubmit = (data) => {
     console.log('data', data);
-    setTimeout(() => {}, 1000);
-    setSubmittedMsg('Form Submitted');
+    setTimeout(() => {
+      setSubmittedMsg('Form Submitted');
+    }, 4000);
   };
 
   useEffect(() => {

@@ -91,6 +91,7 @@ const Dashboard = ({ pages }) => {
                   m={2}
                   flex="1"
                   w={120}
+                  data-testid={`tab-${idx}`}
                 >
                   {page.label}
                 </Button>{' '}

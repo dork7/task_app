@@ -1,0 +1,16 @@
+name: Cypress tests
+on: [push]
+jobs:
+  cypress-run:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+         working-directory: task_app
+         install-command: yarn
+         build: npm run build
+         start: yarn dev
+          

@@ -32,7 +32,7 @@ const SimpleForm = () => {
     console.log('data', data);
     setTimeout(() => {
       setSubmittedMsg('Form Submitted');
-    }, 4000);
+    }, 500);
   };
 
   useEffect(() => {

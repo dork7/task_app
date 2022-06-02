@@ -1,4 +1,5 @@
 {
   "name": "test user",
-  "email": "hello@cypress.io"
+  "email": "hello@cypress.io",
+  "phone" : "03123456789"
 }

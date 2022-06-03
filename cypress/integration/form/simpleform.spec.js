@@ -3,6 +3,7 @@
 describe('Form Testing', () => {
   beforeEach(() => {
     cy.visit('http://localhost:3000/');
+    // cy.visit(Cypress.env('host'));
     cy.viewport(1280, 720);
   });
 

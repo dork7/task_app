@@ -13,7 +13,3 @@ jobs:
           start: yarn start
           wait-on: http://localhost:3000
           wait-on-timeout: 120
-          browser: chrome
-          parallel: true
-          group: 'UI - Chrome - Main'
-          spec: 'cypress/integration/*'

@@ -4,16 +4,23 @@ jobs:
   cypress-run:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
+      - name: 🛫 Checkout
         uses: actions/checkout@v2
-      - name: Install node
-        uses: actions/setup-node@v2
+
+      - name: 🏗 Download the build folders
+        uses: actions/download-artifact@v2
         with:
-          node:version: '14'
-      - name: Install dependencies
-        run: npm install
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+          name: build
+          path: build
+
+      - name: 💻 'UI Tests - Chrome'
+        uses: cypress-io/github-action@v2.9.7
         with:
-          # build: npm run build
-          start: npm start
+          start: yarn start
+          wait-on: http://localhost:3000
+          wait-on-timeout: 120
+          browser: chrome
+          record: true
+          parallel: true
+          group: 'UI - Chrome - Main'
+          spec: 'cypress/integration/main/*'

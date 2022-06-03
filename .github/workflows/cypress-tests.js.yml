@@ -1,7 +1,5 @@
-name: Cypress Tests
-
+name: GitHub Actions Demo
 on: [push]
-
 jobs:
   cypress-run:
     runs-on: ubuntu-latest
@@ -10,12 +8,12 @@ jobs:
         uses: actions/checkout@v2
       - name: Install node
         uses: actions/setup-node@v2
-      # Install NPM dependencies, cache them correctly
+        with:
+          node:version: '14'
       - name: Install dependencies
         run: npm install
-      # and run all Cypress tests
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
-          build: npm run build
+          # build: npm run build
           start: npm start

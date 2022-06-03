@@ -1,0 +1,75 @@
+{
+  "name": "task_app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@chakra-ui/icons": "^1.1.7",
+    "@chakra-ui/react": "^1.8.8",
+    "@choc-ui/chakra-autocomplete": "^4.20.1",
+    "@emotion/react": "^11.9.0",
+    "@emotion/styled": "^11.8.1",
+    "@mapbox/mapbox-gl-geocoder": "^4.7.4",
+    "@pubnub/react-chat-components": "^0.7.0",
+    "@testing-library/jest-dom": "^5.11.4",
+    "@testing-library/react": "^11.1.0",
+    "@testing-library/user-event": "^12.1.10",
+    "@turf/area": "^6.5.0",
+    "antd": "^4.20.6",
+    "axios": "^0.23.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.2",
+    "framer-motion": "4.1.17",
+    "install": "^0.13.0",
+    "mapbox-gl": "^2.4.1",
+    "moment": "^2.29.3",
+    "nodemailer": "^6.7.2",
+    "npm": "^8.2.0",
+    "pubnub": "^4.34.2",
+    "pubnub-react": "^2.1.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-google-places-autocomplete": "^3.3.4",
+    "react-hook-form": "^7.11.1",
+    "react-icon": "^1.0.0",
+    "react-icons": "^4.3.1",
+    "react-map-gl": "^5.2.5",
+    "react-map-gl-draw": "^0.21.1",
+    "react-query": "^3.19.0",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "turf": "^3.0.14",
+    "web-vitals": "^1.0.1",
+    "worker-loader": "^3.0.8"
+  },
+  "scripts": {
+    "dev": "react-scripts start",
+    "start": "set PORT=1122 && react-scripts start",
+    "serve": "node express-server",
+    "build": "react-scripts build",
+    "test": "cypress open",
+    "test_headless": "npx cypress run --headless",
+    "eject": "react-scripts eject",
+    "server": "json-server --watch db.json --port 7878"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "devDependencies": {
+    "cypress": "^9.5.4"
+  }
+}

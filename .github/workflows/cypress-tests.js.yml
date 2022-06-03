@@ -7,12 +7,6 @@ jobs:
       - name: 🛫 Checkout
         uses: actions/checkout@v2
 
-      - name: 🏗 Download the build folders
-        uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-
       - name: 💻 'UI Tests - Chrome'
         uses: cypress-io/github-action@v2.9.7
         with:

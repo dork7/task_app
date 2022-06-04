@@ -11,6 +11,7 @@ const InputField = ({ label, value, required, register, errors }) => {
           border={'2px solid red'}
           {...register(value, { required: `${label} is required` })}
           isInvalid={errors?.[value] && true}
+          test-id={value}
         />
         <Text color={'red'}>{errors?.[value]?.message}</Text>
       </Flex>

@@ -1,7 +1,7 @@
-import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+import { ChakraProvider, extendTheme, Box, Flex } from '@chakra-ui/react';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
-import { useEffect } from 'react';
+import React, { Suspense, useEffect } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import {
@@ -10,23 +10,29 @@ import {
   Switch,
   useLocation,
 } from 'react-router-dom';
-import AxiosLayout from './axios/AxiosLayout';
-import Animations from './components/animations';
-import AutoCompleteField from './components/autoComplete';
-import ChatLayout from './components/chat/ChatLayout';
-import Receiver from './components/chat/Receiver';
-import Home from './components/Home';
-import ReactHooks from './components/hooks';
-import FlexLayout from './components/Layout';
-import MapComponent from './components/map';
-import MethodImplementations from './components/MethodImplementations';
-import Dashboard from './Dashboard';
-import MailSender from './nodemailer/MailSender';
-import HOC from './components/higherOrderComponent';
+import { Center, Spinner } from '@chakra-ui/react';
+
 import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
-import Forms from './components/Forms';
 import 'antd/dist/antd.css';
 import theme from './config/theme';
+
+const AxiosLayout = React.lazy(() => import('./axios/AxiosLayout'));
+
+const Animations = React.lazy(() => import('./components/animations'));
+const AutoCompleteField = React.lazy(() => import('./components/autoComplete'));
+const ChatLayout = React.lazy(() => import('./components/chat/ChatLayout'));
+const Receiver = React.lazy(() => import('./components/chat/Receiver'));
+const Home = React.lazy(() => import('./components/Home'));
+const ReactHooks = React.lazy(() => import('./components/hooks'));
+const FlexLayout = React.lazy(() => import('./components/Layout'));
+const MapComponent = React.lazy(() => import('./components/map'));
+const MethodImplementations = React.lazy(() =>
+  import('./components/MethodImplementations')
+);
+const Dashboard = React.lazy(() => import('./Dashboard'));
+const MailSender = React.lazy(() => import('./nodemailer/MailSender'));
+const HOC = React.lazy(() => import('./components/higherOrderComponent'));
+const Forms = React.lazy(() => import('./components/Forms'));
 
 const pubnub = new PubNub({
   publishKey: 'pub-c-29e3bab4-1e93-49d9-a651-6c45d651cdbd',
@@ -62,53 +68,69 @@ function App() {
     // }
   }, []);
 
+  const WaitingSpinner = () => {
+    return (
+      <>
+        <Flex h="100vh" justify={'center'} alignItems="center">
+          <Spinner size={'xl'} />
+        </Flex>
+      </>
+    );
+  };
+
   return (
     <ChakraProvider theme={theme}>
       {/* <FlexLayout /> */}
       {/* <AxiosLayout /> */}
       <QueryClientProvider client={queryClient}>
         <PubNubProvider client={pubnub}>
-          <motion.div
-            // initial={{ opacity: 0, color: 'red' }}
-            // animate={{ opacity: 1, color: 'white' }}
-            transition={{
-              delay: 0.4,
-              type: 'spring',
-              stiffness: 100,
-            }}
-          >
-            <div className="App">
-              {/* <Navbar /> */}
-              <Dashboard pages={pages} />
-              <Switch>
-                {/* <Route exact path="/" component={Home} /> */}
-                <Route exact path="/" render={(props) => <Home {...props} />} />
-                <Route exact path="/chat" component={ChatLayout} />
-                <Route exact path="/todos" component={FlexLayout} />
-                <Route exact path="/axios" component={AxiosLayout} />
-                <Route exact path="/receiver" component={Receiver} />
-                <Route exact path="/nodemailer" component={MailSender} />
-                <Route exact path="/react-hooks" component={ReactHooks} />
-                {/* <Route exact path="/observable" component={Observables} /> */}
-                <Route exact path="/map" component={MapComponent} />
-                <Route exact path="/animations" component={Animations} />
-                <Route exact path="/hoc" component={HOC} />
-                <Route exact path="/forms" component={Forms} />
-                <Route
-                  exact
-                  path="/methodImplementations"
-                  component={MethodImplementations}
-                />
-                <Route
-                  exact
-                  path="/autocomplete"
-                  component={AutoCompleteField}
-                />
-                {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
-              </Switch>
-              {/* <Footer /> */}
-            </div>
-          </motion.div>
+          <Suspense fallback={<WaitingSpinner />}>
+            <motion.div
+              // initial={{ opacity: 0, color: 'red' }}
+              // animate={{ opacity: 1, color: 'white' }}
+              transition={{
+                delay: 0.4,
+                type: 'spring',
+                stiffness: 100,
+              }}
+            >
+              <div className="App">
+                {/* <Navbar /> */}
+                <Dashboard pages={pages} />
+                <Switch>
+                  {/* <Route exact path="/" component={Home} /> */}
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => <Home {...props} />}
+                  />
+                  <Route exact path="/chat" component={ChatLayout} />
+                  <Route exact path="/todos" component={FlexLayout} />
+                  <Route exact path="/axios" component={AxiosLayout} />
+                  <Route exact path="/receiver" component={Receiver} />
+                  <Route exact path="/nodemailer" component={MailSender} />
+                  <Route exact path="/react-hooks" component={ReactHooks} />
+                  {/* <Route exact path="/observable" component={Observables} /> */}
+                  <Route exact path="/map" component={MapComponent} />
+                  <Route exact path="/animations" component={Animations} />
+                  <Route exact path="/hoc" component={HOC} />
+                  <Route exact path="/forms" component={Forms} />
+                  <Route
+                    exact
+                    path="/methodImplementations"
+                    component={MethodImplementations}
+                  />
+                  <Route
+                    exact
+                    path="/autocomplete"
+                    component={AutoCompleteField}
+                  />
+                  {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
+                </Switch>
+                {/* <Footer /> */}
+              </div>
+            </motion.div>
+          </Suspense>
         </PubNubProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </QueryClientProvider>

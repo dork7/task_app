@@ -7,7 +7,7 @@ jobs:
       - name: 🛫 Checkout
         uses: actions/checkout@v2
 
-      - name: 💻 'UI Tests - Chrome'
+      - name: 💻 'UI Tests - Cypress'
         uses: cypress-io/github-action@v2.9.7
         with:
           start: yarn start

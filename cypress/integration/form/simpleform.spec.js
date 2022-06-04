@@ -27,8 +27,8 @@ describe('Form Testing', () => {
       cy.get('#title').contains('Forms').should('exist');
       // typing name
       cy.get('#name').type(data.name);
-      cy.get('#email').type(data.email);
-      cy.get('#phone').type(data.phone);
+      cy.get('[test-id="email"]').type(data.email);
+      cy.get('[test-id="phone"]').type(data.phone);
       // cy.get('#date').type('2020-01-01');
       cy.get('#select-box').select('option2');
 

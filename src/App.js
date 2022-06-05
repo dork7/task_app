@@ -26,6 +26,7 @@ const Home = React.lazy(() => import('./components/Home'));
 const ReactHooks = React.lazy(() => import('./components/hooks'));
 const FlexLayout = React.lazy(() => import('./components/Layout'));
 const MapComponent = React.lazy(() => import('./components/map'));
+const Portal = React.lazy(() => import('./components/Portal'));
 const MethodImplementations = React.lazy(() =>
   import('./components/MethodImplementations')
 );
@@ -56,6 +57,7 @@ function App() {
     { id: 'animations', label: 'Animations', href: '/animations' },
     { id: 'hoc', label: 'HOC', href: '/hoc' },
     { id: 'forms', label: 'Forms', href: '/forms' },
+    { id: 'portal', label: 'Portal', href: '/portal' },
   ];
   const queryClient = new QueryClient();
 
@@ -115,6 +117,7 @@ function App() {
                   <Route exact path="/animations" component={Animations} />
                   <Route exact path="/hoc" component={HOC} />
                   <Route exact path="/forms" component={Forms} />
+                  <Route exact path="/portal" component={Portal} />
                   <Route
                     exact
                     path="/methodImplementations"

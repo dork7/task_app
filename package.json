@@ -28,6 +28,7 @@
     "pubnub-react": "^2.1.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-error-boundary": "^3.1.4",
     "react-google-places-autocomplete": "^3.3.4",
     "react-hook-form": "^7.11.1",
     "react-icon": "^1.0.0",

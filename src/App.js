@@ -15,6 +15,8 @@ import { Center, Spinner } from '@chakra-ui/react';
 import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
 import 'antd/dist/antd.css';
 import theme from './config/theme';
+import { ErrorBoundary } from 'react-error-boundary';
+import ErrorFallback from './components/ErrorBoundries';
 
 const AxiosLayout = React.lazy(() => import('./axios/AxiosLayout'));
 
@@ -99,37 +101,44 @@ function App() {
               <div className="App">
                 {/* <Navbar /> */}
                 <Dashboard pages={pages} />
-                <Switch>
-                  {/* <Route exact path="/" component={Home} /> */}
-                  <Route
-                    exact
-                    path="/"
-                    render={(props) => <Home {...props} />}
-                  />
-                  <Route exact path="/chat" component={ChatLayout} />
-                  <Route exact path="/todos" component={FlexLayout} />
-                  <Route exact path="/axios" component={AxiosLayout} />
-                  <Route exact path="/receiver" component={Receiver} />
-                  <Route exact path="/nodemailer" component={MailSender} />
-                  <Route exact path="/react-hooks" component={ReactHooks} />
-                  {/* <Route exact path="/observable" component={Observables} /> */}
-                  <Route exact path="/map" component={MapComponent} />
-                  <Route exact path="/animations" component={Animations} />
-                  <Route exact path="/hoc" component={HOC} />
-                  <Route exact path="/forms" component={Forms} />
-                  <Route exact path="/portal" component={Portal} />
-                  <Route
-                    exact
-                    path="/methodImplementations"
-                    component={MethodImplementations}
-                  />
-                  <Route
-                    exact
-                    path="/autocomplete"
-                    component={AutoCompleteField}
-                  />
-                  {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
-                </Switch>
+                <ErrorBoundary
+                  FallbackComponent={ErrorFallback}
+                  onReset={() => {
+                    // reset the state of your app so the error doesn't happen again
+                  }}
+                >
+                  <Switch>
+                    {/* <Route exact path="/" component={Home} /> */}
+                    <Route
+                      exact
+                      path="/"
+                      render={(props) => <Home {...props} />}
+                    />
+                    <Route exact path="/chat" component={ChatLayout} />
+                    <Route exact path="/todos" component={FlexLayout} />
+                    <Route exact path="/axios" component={AxiosLayout} />
+                    <Route exact path="/receiver" component={Receiver} />
+                    <Route exact path="/nodemailer" component={MailSender} />
+                    <Route exact path="/react-hooks" component={ReactHooks} />
+                    {/* <Route exact path="/observable" component={Observables} /> */}
+                    <Route exact path="/map" component={MapComponent} />
+                    <Route exact path="/animations" component={Animations} />
+                    <Route exact path="/hoc" component={HOC} />
+                    <Route exact path="/forms" component={Forms} />
+                    <Route exact path="/portal" component={Portal} />
+                    <Route
+                      exact
+                      path="/methodImplementations"
+                      component={MethodImplementations}
+                    />
+                    <Route
+                      exact
+                      path="/autocomplete"
+                      component={AutoCompleteField}
+                    />
+                    {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
+                  </Switch>
+                </ErrorBoundary>
                 {/* <Footer /> */}
               </div>
             </motion.div>

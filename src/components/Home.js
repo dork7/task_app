@@ -22,7 +22,7 @@ const Home = (props) => {
       transition: { ease: 'easeOut' },
     },
   };
-
+  // if (Math.random() > 0.5) return new Error('Error for testing test boundary');
   return (
     <Flex
       flexDir={'column'}

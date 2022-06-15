@@ -1,7 +1,13 @@
-import { ChakraProvider, extendTheme, Box, Flex } from '@chakra-ui/react';
+import {
+  ChakraProvider,
+  extendTheme,
+  Box,
+  Flex,
+  Button,
+} from '@chakra-ui/react';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
-import React, { Suspense, useEffect } from 'react';
+import React, { Suspense, useEffect, useState } from 'react';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import {
@@ -19,6 +25,7 @@ import theme from './config/theme';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './components/ErrorBoundries';
 import Page404 from './Page404';
+import ProfilePage from './components/Profile';
 
 const AxiosLayout = React.lazy(() => import('./axios/AxiosLayout'));
 
@@ -62,6 +69,7 @@ function App() {
     { id: 'hoc', label: 'HOC', href: '/hoc' },
     { id: 'forms', label: 'Forms', href: '/forms' },
     { id: 'portal', label: 'Portal', href: '/portal' },
+    { id: 'profilePage', label: 'ProfilePage', href: '/profilePage' },
   ];
   const queryClient = new QueryClient();
 
@@ -83,6 +91,7 @@ function App() {
       </>
     );
   };
+  const [loggedIn, setLoggedIn] = useState(true);
 
   return (
     <ChakraProvider theme={theme}>
@@ -102,7 +111,8 @@ function App() {
             >
               <div className="App">
                 {/* <Navbar /> */}
-                <Dashboard pages={pages} />
+                <Dashboard pages={pages} {...{ loggedIn, setLoggedIn }} />
+
                 <ErrorBoundary
                   FallbackComponent={ErrorFallback}
                   onReset={() => {
@@ -110,35 +120,34 @@ function App() {
                   }}
                 >
                   <Switch>
-                    {/* <Route exact path="/" component={Home} /> */}
+                    {/* <Route  path="/" component={Home} /> */}
                     <Route
                       exact
                       path="/"
                       render={(props) => <Home {...props} />}
                     />
-                    <Route exact path="/chat" component={ChatLayout} />
-                    <Route exact path="/todos" component={FlexLayout} />
-                    <Route exact path="/axios" component={AxiosLayout} />
-                    <Route exact path="/receiver" component={Receiver} />
-                    <Route exact path="/nodemailer" component={MailSender} />
-                    <Route exact path="/react-hooks" component={ReactHooks} />
-                    {/* <Route exact path="/observable" component={Observables} /> */}
-                    <Route exact path="/map" component={MapComponent} />
-                    <Route exact path="/animations" component={Animations} />
-                    <Route exact path="/hoc" component={HOC} />
-                    <Route exact path="/forms" component={Forms} />
-                    <Route exact path="/portal" component={Portal} />
+                    <Route path="/chat" component={ChatLayout} />
+                    <Route path="/todos" component={FlexLayout} />
+                    <Route path="/axios" component={AxiosLayout} />
+                    <Route path="/receiver" component={Receiver} />
+                    <Route path="/nodemailer" component={MailSender} />
+                    <Route path="/react-hooks" component={ReactHooks} />
+                    {/* <Route  path="/observable" component={Observables} /> */}
+                    <Route path="/map" component={MapComponent} />
+                    <Route path="/animations" component={Animations} />
+                    <Route path="/hoc" component={HOC} />
+                    <Route path="/forms" component={Forms} />
+                    <Route path="/portal" component={Portal} />
                     <Route
-                      exact
                       path="/methodImplementations"
                       component={MethodImplementations}
                     />
-                    <Route
-                      exact
-                      path="/autocomplete"
-                      component={AutoCompleteField}
-                    />
-                    <Route component={Page404} />
+                    <Route path="/profilePage">
+                      {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
+                    </Route>
+                    <Route path="/autocomplete" component={AutoCompleteField} />
+
+                    {/* <Route component={Page404} /> */}
 
                     {/* <Redirect from="/" to="chat" /> */}
                   </Switch>

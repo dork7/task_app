@@ -6,7 +6,7 @@ import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
-const Dashboard = ({ pages }) => {
+const Dashboard = ({ pages, loggedIn, setLoggedIn }) => {
   const { colorMode, toggleColorMode } = useColorMode();
   const transition = { duration: 4, yoyo: Infinity, ease: 'easeInOut' };
 
@@ -103,6 +103,10 @@ const Dashboard = ({ pages }) => {
               ) : (
                 <Icon as={MoonIcon} />
               )}
+            </Button>
+
+            <Button onClick={() => setLoggedIn(!loggedIn)} m={2}>
+              {loggedIn ? 'LOGOUT' : 'LOG IN'}
             </Button>
           </Flex>
         </Center>

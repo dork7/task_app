@@ -6,6 +6,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 import {
   BrowserRouter as Router,
+  Redirect,
   Route,
   Switch,
   useLocation,
@@ -17,6 +18,7 @@ import 'antd/dist/antd.css';
 import theme from './config/theme';
 import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './components/ErrorBoundries';
+import Page404 from './Page404';
 
 const AxiosLayout = React.lazy(() => import('./axios/AxiosLayout'));
 
@@ -136,7 +138,9 @@ function App() {
                       path="/autocomplete"
                       component={AutoCompleteField}
                     />
-                    {/* <Route exact path="/pubnub" component={PubNubtest} /> */}
+                    <Route component={Page404} />
+
+                    {/* <Redirect from="/" to="chat" /> */}
                   </Switch>
                 </ErrorBoundary>
                 {/* <Footer /> */}

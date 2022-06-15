@@ -1,4 +1,4 @@
-import { Flex, Text } from '@chakra-ui/react';
+import { Box, Flex, Text } from '@chakra-ui/react';
 import React, { useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useHistory, useLocation } from 'react-router-dom';

@@ -1,14 +1,16 @@
-import React from "react";
-import { chakra, Box, Flex, useColorModeValue } from "@chakra-ui/react";
+import React from 'react';
+import { chakra, Box, Flex, useColorModeValue } from '@chakra-ui/react';
 
 const Card = () => {
   return (
     <Flex
-      bg={useColorModeValue("#F9FAFB", "gray.600")}
-      p={50}
+      bg={useColorModeValue('#F9FAFB', 'gray.600')}
       w="full"
       alignItems="center"
       justifyContent="center"
+      margin={4}
+      padding={4}
+      borderRadius={4}
     >
       <Flex
         direction="column"
@@ -27,13 +29,13 @@ const Card = () => {
           bgPos="center"
           style={{
             backgroundImage:
-              "url(https://images.unsplash.com/photo-1521903062400-b80f2cb8cb9d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80)",
+              'url(https://images.unsplash.com/photo-1521903062400-b80f2cb8cb9d?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&auto=format&fit=crop&w=1050&q=80)',
           }}
         ></Box>
 
         <Box
           w={{ base: 56, md: 64 }}
-          bg={useColorModeValue("white", "gray.800")}
+          bg={useColorModeValue('white', 'gray.800')}
           mt={-10}
           shadow="lg"
           rounded="lg"
@@ -44,7 +46,7 @@ const Card = () => {
             textAlign="center"
             fontWeight="bold"
             textTransform="uppercase"
-            color={useColorModeValue("gray.800", "white")}
+            color={useColorModeValue('gray.800', 'white')}
             letterSpacing={1}
           >
             Nike Revolt
@@ -55,11 +57,11 @@ const Card = () => {
             justifyContent="space-between"
             py={2}
             px={3}
-            bg={useColorModeValue("gray.200", "gray.700")}
+            bg={useColorModeValue('gray.200', 'gray.700')}
           >
             <chakra.span
               fontWeight="bold"
-              color={useColorModeValue("gray.800", "gray.200")}
+              color={useColorModeValue('gray.800', 'gray.200')}
             >
               $129
             </chakra.span>
@@ -73,11 +75,11 @@ const Card = () => {
               rounded="lg"
               textTransform="uppercase"
               _hover={{
-                bg: useColorModeValue("gray.700", "gray.600"),
+                bg: useColorModeValue('gray.700', 'gray.600'),
               }}
               _focus={{
-                bg: useColorModeValue("gray.700", "gray.600"),
-                outline: "none",
+                bg: useColorModeValue('gray.700', 'gray.600'),
+                outline: 'none',
               }}
             >
               Add to cart

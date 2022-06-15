@@ -1,7 +1,7 @@
-import { Grid } from "@chakra-ui/react";
-import { motion } from "framer-motion";
-import React from "react";
-import Card from "./Card";
+import { Box, Flex, Grid } from '@chakra-ui/react';
+import { motion } from 'framer-motion';
+import React from 'react';
+import Card from './Card';
 
 const Cards = () => {
   return (
@@ -12,7 +12,7 @@ const Cards = () => {
         exit={{ opacity: 0, y: -200 }}
         transition={{ duration: 0.15 }}
       >
-        <Grid templateColumns="repeat(3, 1fr)" gap={6}>
+        <Flex wrap="wrap" justify="center">
           {[...Array(5).keys()].map((item, idx) => {
             return (
               <>
@@ -24,12 +24,14 @@ const Cards = () => {
                   whileTap={{ scale: 0.9 }}
                   key={idx}
                 >
-                  <Card />
+                  <Box p={2}>
+                    <Card />
+                  </Box>
                 </motion.div>
               </>
             );
           })}
-        </Grid>
+        </Flex>
       </motion.div>
     </>
   );

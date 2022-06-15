@@ -36,10 +36,16 @@ const Animations = () => {
             </Button>
           ))}
         </HStack>
-        <Stack> {animationSelected === 'simple' && <Simple />}</Stack>
-        <Stack> {animationSelected === 'cards' && <Cards />}</Stack>
-        <Stack> {animationSelected === 'scaleAble' && <ScaleAble />}</Stack>
-        <Stack> {animationSelected === 'repeatable' && <Repeatable />}</Stack>
+        <section>
+          <Stack> {animationSelected === 'simple' && <Simple />}</Stack>
+          <Stack> {animationSelected === 'cards' && <Cards />}</Stack>
+          <Stack> {animationSelected === 'scaleAble' && <ScaleAble />}</Stack>
+          <Stack> {animationSelected === 'repeatable' && <Repeatable />}</Stack>
+        </section>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
+        <div className="cube"></div>
       </Flex>
     </>
   );

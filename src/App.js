@@ -45,6 +45,7 @@ const Dashboard = React.lazy(() => import('./Dashboard'));
 const MailSender = React.lazy(() => import('./nodemailer/MailSender'));
 const HOC = React.lazy(() => import('./components/higherOrderComponent'));
 const Forms = React.lazy(() => import('./components/Forms'));
+const Excel = React.lazy(() => import('./components/Excel'));
 
 const pubnub = new PubNub({
   publishKey: 'pub-c-29e3bab4-1e93-49d9-a651-6c45d651cdbd',
@@ -70,6 +71,7 @@ function App() {
     { id: 'forms', label: 'Forms', href: '/forms' },
     { id: 'portal', label: 'Portal', href: '/portal' },
     { id: 'profilePage', label: 'ProfilePage', href: '/profilePage' },
+    { id: 'Excel', label: 'Excel', href: '/excel' },
   ];
   const queryClient = new QueryClient();
 
@@ -111,48 +113,52 @@ function App() {
             >
               <div className="App">
                 {/* <Navbar /> */}
-                <Dashboard pages={pages} {...{ loggedIn, setLoggedIn }} />
+                <Dashboard pages={pages} {...{ loggedIn, setLoggedIn }}>
+                  <ErrorBoundary
+                    FallbackComponent={ErrorFallback}
+                    onReset={() => {
+                      // reset the state of your app so the error doesn't happen again
+                    }}
+                  >
+                    <Switch>
+                      {/* <Route  path="/" component={Home} /> */}
+                      <Route
+                        exact
+                        path="/"
+                        render={(props) => <Home {...props} />}
+                      />
+                      <Route path="/chat" component={ChatLayout} />
+                      <Route path="/todos" component={FlexLayout} />
+                      <Route path="/axios" component={AxiosLayout} />
+                      <Route path="/receiver" component={Receiver} />
+                      <Route path="/nodemailer" component={MailSender} />
+                      <Route path="/react-hooks" component={ReactHooks} />
+                      {/* <Route  path="/observable" component={Observables} /> */}
+                      <Route path="/map" component={MapComponent} />
+                      <Route path="/animations" component={Animations} />
+                      <Route path="/hoc" component={HOC} />
+                      <Route path="/forms" component={Forms} />
+                      <Route path="/portal" component={Portal} />
+                      <Route
+                        path="/methodImplementations"
+                        component={MethodImplementations}
+                      />
+                      <Route path="/profilePage">
+                        {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
+                      </Route>
+                      <Route
+                        path="/autocomplete"
+                        component={AutoCompleteField}
+                      />
+                      <Route path="/excel" component={Excel} />
 
-                <ErrorBoundary
-                  FallbackComponent={ErrorFallback}
-                  onReset={() => {
-                    // reset the state of your app so the error doesn't happen again
-                  }}
-                >
-                  <Switch>
-                    {/* <Route  path="/" component={Home} /> */}
-                    <Route
-                      exact
-                      path="/"
-                      render={(props) => <Home {...props} />}
-                    />
-                    <Route path="/chat" component={ChatLayout} />
-                    <Route path="/todos" component={FlexLayout} />
-                    <Route path="/axios" component={AxiosLayout} />
-                    <Route path="/receiver" component={Receiver} />
-                    <Route path="/nodemailer" component={MailSender} />
-                    <Route path="/react-hooks" component={ReactHooks} />
-                    {/* <Route  path="/observable" component={Observables} /> */}
-                    <Route path="/map" component={MapComponent} />
-                    <Route path="/animations" component={Animations} />
-                    <Route path="/hoc" component={HOC} />
-                    <Route path="/forms" component={Forms} />
-                    <Route path="/portal" component={Portal} />
-                    <Route
-                      path="/methodImplementations"
-                      component={MethodImplementations}
-                    />
-                    <Route path="/profilePage">
-                      {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
-                    </Route>
-                    <Route path="/autocomplete" component={AutoCompleteField} />
+                      {/* <Route component={Page404} /> */}
 
-                    {/* <Route component={Page404} /> */}
-
-                    {/* <Redirect from="/" to="chat" /> */}
-                  </Switch>
-                </ErrorBoundary>
-                {/* <Footer /> */}
+                      {/* <Redirect from="/" to="chat" /> */}
+                    </Switch>
+                  </ErrorBoundary>
+                  {/* <Footer /> */}
+                </Dashboard>
               </div>
             </motion.div>
           </Suspense>

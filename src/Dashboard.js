@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/button';
 import { MoonIcon, SunIcon } from '@chakra-ui/icons';
-import { Center, Flex, Box } from '@chakra-ui/layout';
+import { Center, Flex, Box, Stack } from '@chakra-ui/layout';
 import { Icon, useColorMode } from '@chakra-ui/react';
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
@@ -83,38 +83,51 @@ const Dashboard = ({ pages, loggedIn, setLoggedIn, children }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 // transition={transition}
               />
-              <Box d="flex" flexDir="column" py="12">
-                {pages.map((page, idx) => (
-                  <Link key={`${page}-${idx}`} to={page.href}>
-                    <Button
-                      key={`${page}-${idx}`}
-                      variant="solid"
-                      colorScheme="teal"
-                      m={2}
-                      flex="1"
-                      w={120}
-                      data-testid={`tab-${idx}`}
-                      size="sm"
-                    >
-                      {page.label}
-                    </Button>{' '}
-                  </Link>
-                ))}
-              </Box>
-              <Button id="color-mode" onClick={toggleColorMode} m={2} size="sm">
-                {colorMode === 'light' ? (
-                  <Icon as={SunIcon} />
-                ) : (
-                  <Icon as={MoonIcon} />
-                )}
-              </Button>
+              <Box bgColor={'gray'} p={4} h="100vh" borderRadius={12}>
+                <Box d="flex" flexDir="column" py="12">
+                  {pages.map((page, idx) => (
+                    <Link key={`${page}-${idx}`} to={page.href}>
+                      <Button
+                        key={`${page}-${idx}`}
+                        variant="solid"
+                        colorScheme="teal"
+                        m={2}
+                        flex="1"
+                        w={120}
+                        data-testid={`tab-${idx}`}
+                        size="sm"
+                      >
+                        {page.label}
+                      </Button>{' '}
+                    </Link>
+                  ))}
+                </Box>
+                <Stack>
+                  <Button
+                    id="color-mode"
+                    onClick={toggleColorMode}
+                    m={2}
+                    size="sm"
+                  >
+                    {colorMode === 'light' ? (
+                      <Icon as={SunIcon} />
+                    ) : (
+                      <Icon as={MoonIcon} />
+                    )}
+                  </Button>
 
-              <Button onClick={() => setLoggedIn(!loggedIn)} m={2} size="sm">
-                {loggedIn ? 'LOGOUT' : 'LOG IN'}
-              </Button>
-              <Button onClick={() => setMenuDir(!menuDir)} m={2} size="sm">
-                {menuDir ? '<-' : '->'}
-              </Button>
+                  <Button
+                    onClick={() => setLoggedIn(!loggedIn)}
+                    m={2}
+                    size="sm"
+                  >
+                    {loggedIn ? 'LOGOUT' : 'LOG IN'}
+                  </Button>
+                  <Button onClick={() => setMenuDir(!menuDir)} m={2} size="sm">
+                    {menuDir ? '<-' : '->'}
+                  </Button>
+                </Stack>
+              </Box>
             </Flex>
             <Box flex="1" my="12">
               {children}

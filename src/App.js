@@ -26,6 +26,13 @@ import { ErrorBoundary } from 'react-error-boundary';
 import ErrorFallback from './components/ErrorBoundries';
 import Page404 from './Page404';
 import ProfilePage from './components/Profile';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
+import GraphQl from './components/GraphQl';
+
+const apolloClient = new ApolloClient({
+  uri: 'http://localhost:4000/v1/graphql',
+  cache: new InMemoryCache(),
+});
 
 const AxiosLayout = React.lazy(() => import('./axios/AxiosLayout'));
 
@@ -72,6 +79,7 @@ function App() {
     { id: 'portal', label: 'Portal', href: '/portal' },
     { id: 'profilePage', label: 'ProfilePage', href: '/profilePage' },
     { id: 'Excel', label: 'Excel', href: '/excel' },
+    { id: 'Graphql', label: 'Graphql', href: '/graphql-apollo' },
   ];
   const queryClient = new QueryClient();
 
@@ -99,72 +107,75 @@ function App() {
     <ChakraProvider theme={theme}>
       {/* <FlexLayout /> */}
       {/* <AxiosLayout /> */}
-      <QueryClientProvider client={queryClient}>
-        <PubNubProvider client={pubnub}>
-          <Suspense fallback={<WaitingSpinner />}>
-            <motion.div
-              // initial={{ opacity: 0, color: 'red' }}
-              // animate={{ opacity: 1, color: 'white' }}
-              transition={{
-                delay: 0.4,
-                type: 'spring',
-                stiffness: 100,
-              }}
-            >
-              <div className="App">
-                {/* <Navbar /> */}
-                <Dashboard pages={pages} {...{ loggedIn, setLoggedIn }}>
-                  <ErrorBoundary
-                    FallbackComponent={ErrorFallback}
-                    onReset={() => {
-                      // reset the state of your app so the error doesn't happen again
-                    }}
-                  >
-                    <Switch>
-                      {/* <Route  path="/" component={Home} /> */}
-                      <Route
-                        exact
-                        path="/"
-                        render={(props) => <Home {...props} />}
-                      />
-                      <Route path="/chat" component={ChatLayout} />
-                      <Route path="/todos" component={FlexLayout} />
-                      <Route path="/axios" component={AxiosLayout} />
-                      <Route path="/receiver" component={Receiver} />
-                      <Route path="/nodemailer" component={MailSender} />
-                      <Route path="/react-hooks" component={ReactHooks} />
-                      {/* <Route  path="/observable" component={Observables} /> */}
-                      <Route path="/map" component={MapComponent} />
-                      <Route path="/animations" component={Animations} />
-                      <Route path="/hoc" component={HOC} />
-                      <Route path="/forms" component={Forms} />
-                      <Route path="/portal" component={Portal} />
-                      <Route
-                        path="/methodImplementations"
-                        component={MethodImplementations}
-                      />
-                      <Route path="/profilePage">
-                        {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
-                      </Route>
-                      <Route
-                        path="/autocomplete"
-                        component={AutoCompleteField}
-                      />
-                      <Route path="/excel" component={Excel} />
+      <ApolloProvider client={apolloClient}>
+        <QueryClientProvider client={queryClient}>
+          <PubNubProvider client={pubnub}>
+            <Suspense fallback={<WaitingSpinner />}>
+              <motion.div
+                // initial={{ opacity: 0, color: 'red' }}
+                // animate={{ opacity: 1, color: 'white' }}
+                transition={{
+                  delay: 0.4,
+                  type: 'spring',
+                  stiffness: 100,
+                }}
+              >
+                <div className="App">
+                  {/* <Navbar /> */}
+                  <Dashboard pages={pages} {...{ loggedIn, setLoggedIn }}>
+                    <ErrorBoundary
+                      FallbackComponent={ErrorFallback}
+                      onReset={() => {
+                        // reset the state of your app so the error doesn't happen again
+                      }}
+                    >
+                      <Switch>
+                        {/* <Route  path="/" component={Home} /> */}
+                        <Route
+                          exact
+                          path="/"
+                          render={(props) => <Home {...props} />}
+                        />
+                        <Route path="/chat" component={ChatLayout} />
+                        <Route path="/todos" component={FlexLayout} />
+                        <Route path="/axios" component={AxiosLayout} />
+                        <Route path="/receiver" component={Receiver} />
+                        <Route path="/nodemailer" component={MailSender} />
+                        <Route path="/react-hooks" component={ReactHooks} />
+                        {/* <Route  path="/observable" component={Observables} /> */}
+                        <Route path="/map" component={MapComponent} />
+                        <Route path="/animations" component={Animations} />
+                        <Route path="/hoc" component={HOC} />
+                        <Route path="/forms" component={Forms} />
+                        <Route path="/portal" component={Portal} />
+                        <Route
+                          path="/methodImplementations"
+                          component={MethodImplementations}
+                        />
+                        <Route path="/profilePage">
+                          {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
+                        </Route>
+                        <Route
+                          path="/autocomplete"
+                          component={AutoCompleteField}
+                        />
+                        <Route path="/excel" component={Excel} />
+                        <Route path="/graphql-apollo" component={GraphQl} />
 
-                      {/* <Route component={Page404} /> */}
+                        {/* <Route component={Page404} /> */}
 
-                      {/* <Redirect from="/" to="chat" /> */}
-                    </Switch>
-                  </ErrorBoundary>
-                  {/* <Footer /> */}
-                </Dashboard>
-              </div>
-            </motion.div>
-          </Suspense>
-        </PubNubProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+                        {/* <Redirect from="/" to="chat" /> */}
+                      </Switch>
+                    </ErrorBoundary>
+                    {/* <Footer /> */}
+                  </Dashboard>
+                </div>
+              </motion.div>
+            </Suspense>
+          </PubNubProvider>
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </ApolloProvider>
     </ChakraProvider>
   );
 }

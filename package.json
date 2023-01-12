@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.6.9",
     "@chakra-ui/icons": "^1.1.7",
     "@chakra-ui/react": "^1.8.8",
     "@choc-ui/chakra-autocomplete": "^4.20.1",
@@ -19,6 +20,7 @@
     "cors": "^2.8.5",
     "express": "^4.17.2",
     "framer-motion": "4.1.17",
+    "graphql": "^16.5.0",
     "install": "^0.13.0",
     "mapbox-gl": "^2.4.1",
     "moment": "^2.29.3",

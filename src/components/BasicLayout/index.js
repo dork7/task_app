@@ -7,7 +7,7 @@ const BasicLayout = ({ children }) => {
       flexDir={'column'}
       alignItems="center"
       justifyContent="center"
-      // backgroundColor="gray.700"
+      backgroundColor="gray.700"
       grow={true}
       // height="100vh"
       p={4}

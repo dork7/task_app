@@ -1,13 +1,14 @@
 import React from 'react';
+import BasicLayout from '../BasicLayout';
 import Login from './Login';
 import Register from './Register';
 
 const Auth = () => {
   return (
-    <div>
+    <BasicLayout>
       <Login />
-      <Register />
-    </div>
+      {/* <Register /> */}
+    </BasicLayout>
   );
 };
 

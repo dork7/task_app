@@ -83,7 +83,7 @@ const Dashboard = ({ pages, loggedIn, setLoggedIn, children }) => {
                 animate={{ opacity: 1, scale: 1 }}
                 // transition={transition}
               />
-              <Box bgColor={'gray'} p={4} h="100vh" borderRadius={12}>
+              <Box bgColor={'gray'} p={4} borderRadius={12}>
                 <Box d="flex" flexDir="column" py="12">
                   {pages.map((page, idx) => (
                     <Link key={`${page}-${idx}`} to={page.href}>
@@ -91,16 +91,14 @@ const Dashboard = ({ pages, loggedIn, setLoggedIn, children }) => {
                         key={`${page}-${idx}`}
                         variant="grayButton"
                         m={2}
-                        flex="1"
                         data-testid={`tab-${idx}`}
                         size="sm"
+                        flex="0 1 50px"
                       >
                         {page.label}
                       </Button>{' '}
                     </Link>
                   ))}
-                </Box>
-                <Stack>
                   <Button
                     id="color-mode"
                     onClick={toggleColorMode}
@@ -121,10 +119,15 @@ const Dashboard = ({ pages, loggedIn, setLoggedIn, children }) => {
                   >
                     {loggedIn ? 'LOGOUT' : 'LOG IN'}
                   </Button>
-                  <Button onClick={() => setMenuDir(!menuDir)} m={2} size="sm">
+                  <Button
+                    onClick={() => setMenuDir(!menuDir)}
+                    m={2}
+                    size="sm"
+                    textAlign={'center'}
+                  >
                     {menuDir ? '<-' : '->'}
                   </Button>
-                </Stack>
+                </Box>
               </Box>
             </Flex>
             <Box flex="1" my="12">

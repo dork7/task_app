@@ -33,3 +33,10 @@ code {
   transform: scale(1.01);
 }
  
+.outer-box{
+  padding: 2rem;
+  height: 50vh;
+  width: 70vw;
+  border: 2px solid red;
+  position: absolute;
+}

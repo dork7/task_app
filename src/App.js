@@ -53,6 +53,7 @@ const MailSender = React.lazy(() => import('./nodemailer/MailSender'));
 const HOC = React.lazy(() => import('./components/higherOrderComponent'));
 const Forms = React.lazy(() => import('./components/Forms'));
 const Excel = React.lazy(() => import('./components/Excel'));
+const PlainHtml = React.lazy(() => import('./components/PlainHtml'));
 
 const pubnub = new PubNub({
   publishKey: 'pub-c-29e3bab4-1e93-49d9-a651-6c45d651cdbd',
@@ -80,6 +81,7 @@ function App() {
     { id: 'profilePage', label: 'ProfilePage', href: '/profilePage' },
     { id: 'Excel', label: 'Excel', href: '/excel' },
     { id: 'Graphql', label: 'Graphql', href: '/graphql-apollo' },
+    { id: 'Plain HTML', label: 'Plain HTML', href: '/plain-html' },
   ];
   const queryClient = new QueryClient();
 
@@ -161,6 +163,7 @@ function App() {
                         />
                         <Route path="/excel" component={Excel} />
                         <Route path="/graphql-apollo" component={GraphQl} />
+                        <Route path="/plain-html" component={PlainHtml} />
 
                         {/* <Route component={Page404} /> */}
 

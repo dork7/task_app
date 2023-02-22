@@ -1,7 +1,7 @@
 import { Flex } from '@chakra-ui/react';
 import React from 'react';
 
-const BasicLayout = ({ children }) => {
+const BasicLayout = ({ children, ...props }) => {
   return (
     <Flex
       flexDir={'column'}
@@ -11,6 +11,7 @@ const BasicLayout = ({ children }) => {
       grow={true}
       // height="100vh"
       p={4}
+      {...props}
     >
       {children}
     </Flex>

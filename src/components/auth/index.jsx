@@ -7,7 +7,7 @@ import Register from './Register';
 const Auth = () => {
   return (
     <BasicLayout>
-      <Tabs variant="enclosed">
+      <Tabs variant="enclosed" w="400px">
         <TabList>
           <Tab>Login</Tab>
           <Tab>Register</Tab>

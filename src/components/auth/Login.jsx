@@ -14,6 +14,7 @@ import InputField from './InputFeild';
 
 const Login = () => {
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -25,7 +26,8 @@ const Login = () => {
 
   const formSubmit = async (data) => {
     try {
-      console.log('process.env.HOST_URL :>> ', process.env);
+      setIsLoading(true);
+
       const { email, password } = data;
       const body = {
         email,
@@ -41,7 +43,6 @@ const Login = () => {
         },
       };
       const resp = await axios(options);
-      console.log('resp :>> ', resp.data);
 
       toast({
         position: 'bottom',
@@ -51,6 +52,7 @@ const Login = () => {
         isClosable: true,
         status: 'success',
       });
+      setIsLoading(false);
     } catch (err) {
       toast({
         position: 'bottom',
@@ -60,6 +62,7 @@ const Login = () => {
         isClosable: true,
         status: 'error',
       });
+      setIsLoading(false);
     }
   };
 
@@ -89,6 +92,7 @@ const Login = () => {
           id="form-submit-btn"
           variant="grayButton"
           p={2}
+          isLoading={isLoading}
         >
           Login
         </Button>

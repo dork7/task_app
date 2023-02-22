@@ -8,6 +8,7 @@ const ChakraDatePicker = chakra(DatePicker);
 
 const Register = () => {
   const toast = useToast();
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     register,
@@ -19,7 +20,7 @@ const Register = () => {
 
   const formSubmit = async (data) => {
     try {
-      console.log('process.env.HOST_URL :>> ', process.env);
+      setIsLoading(true);
       const { email, password, name } = data;
       const body = {
         email,
@@ -46,6 +47,7 @@ const Register = () => {
         isClosable: true,
         status: 'success',
       });
+      setIsLoading(false);
     } catch (err) {
       toast({
         position: 'bottom',
@@ -55,6 +57,7 @@ const Register = () => {
         isClosable: true,
         status: 'error',
       });
+      setIsLoading(false);
     }
   };
 
@@ -96,6 +99,7 @@ const Register = () => {
           id="form-submit-btn"
           p={2}
           variant="grayButton"
+          isLoading={isLoading}
         >
           {' '}
           Register{' '}

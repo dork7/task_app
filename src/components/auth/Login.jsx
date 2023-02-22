@@ -1,11 +1,20 @@
-import { Button, chakra, Flex, Text } from '@chakra-ui/react';
+import {
+  Button,
+  chakra,
+  Flex,
+  Text,
+  useToast,
+  Container,
+  Box,
+} from '@chakra-ui/react';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import InputField from './InputFeild';
 
 const Login = () => {
-  const [submittedMsg, setSubmittedMsg] = useState('');
+  const toast = useToast();
+
   const {
     register,
     handleSubmit,
@@ -25,7 +34,7 @@ const Login = () => {
 
       const options = {
         method: 'post',
-        url: `http://localhost:4000/v1/auth/login`,
+        url: `${process.env.REACT_APP_HOST_URL}/auth/login`,
         data: body,
         headers: {
           'content-type': 'application/json',
@@ -33,22 +42,27 @@ const Login = () => {
       };
       const resp = await axios(options);
       console.log('resp :>> ', resp.data);
-      setTimeout(() => {
-        setSubmittedMsg('Form Submitted');
-      }, 500);
+
+      toast({
+        position: 'bottom',
+        title: 'Logged In',
+        description: resp.data.message ?? "You're now logged in.",
+        duration: 5000,
+        isClosable: true,
+        status: 'success',
+      });
     } catch (err) {
-      console.log('err :>> ', err.response.data);
+      toast({
+        position: 'bottom',
+        title: 'Something went wrong',
+        description: err.response.data.message ?? '',
+        duration: 5000,
+        isClosable: true,
+        status: 'error',
+      });
     }
   };
 
-  useEffect(() => {
-    // console.log('errors', errors);
-    register('date');
-  }, []);
-
-  const onDateChange = (date) => {
-    setValue('date', date.format());
-  };
   return (
     <>
       {' '}
@@ -69,11 +83,15 @@ const Login = () => {
           />
         </Flex>
 
-        <Button type="submit" w="full" id="form-submit-btn" p={2}>
-          {' '}
-          Save{' '}
+        <Button
+          type="submit"
+          w="full"
+          id="form-submit-btn"
+          variant="grayButton"
+          p={2}
+        >
+          Login
         </Button>
-        <Text id="is-submitted">{submittedMsg}</Text>
       </chakra.form>
     </>
   );

@@ -45,6 +45,7 @@ const ReactHooks = React.lazy(() => import('./components/hooks'));
 const FlexLayout = React.lazy(() => import('./components/Layout'));
 const MapComponent = React.lazy(() => import('./components/map'));
 const Portal = React.lazy(() => import('./components/Portal'));
+const Auth = React.lazy(() => import('./components/auth'));
 const MethodImplementations = React.lazy(() =>
   import('./components/MethodImplementations')
 );
@@ -64,6 +65,7 @@ const pubnub = new PubNub({
 function App() {
   const pages = [
     { id: 'dashboard', label: 'DashBoard', href: '/' },
+    { id: 'AUTH', label: 'Auth', href: '/auth' },
     { id: 'todo', label: 'Todo', href: '/todos' },
     // { label: "Methods", href: "/methodImplementations" },
     { id: 'axios', label: 'Axios', href: '/axios' },
@@ -164,6 +166,7 @@ function App() {
                         <Route path="/excel" component={Excel} />
                         <Route path="/graphql-apollo" component={GraphQl} />
                         <Route path="/plain-html" component={PlainHtml} />
+                        <Route path="/auth" component={Auth} />
 
                         {/* <Route component={Page404} /> */}
 

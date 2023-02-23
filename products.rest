@@ -1,0 +1,61 @@
+@host=localhost:4000
+@token=Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE2NzcxMzkyMTYsImlhdCI6MTY3NzEzNzQxNiwidXNlcklkIjoiNjNmNzE2MDVmY2JiMGQzMWRjZjZlZTRmIiwiYnVzaW5lc3NJZCI6bnVsbH0.3p0g-vJsC0KncxpHLWnIur1bkYV8uD8bSwZYUNf1XAE
+
+GET http://{{host}}/v1/test
+
+###
+
+POST http://{{host}}/v1/auth/login
+Content-Type: application/json
+
+{
+    "email" :"dev@sublo.co",
+    "password" : "123"
+}
+
+###
+
+POST http://{{host}}/v1/auth/register
+Content-Type: application/json
+
+{
+    "email" :"dev@sublo.co",
+    "password" : "123"
+}
+
+
+###
+# get users
+GET http://{{host}}/v1/users
+Authorization: {{token}}
+
+ 
+###
+# POST products
+POST http://{{host}}/v1/product
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+
+    "productName" : "apple2",
+    "price" : "123"
+}
+ 
+###
+# get products
+GET http://{{host}}/v1/product
+Authorization: {{token}}
+
+
+###
+# SEND MAIL
+POST http://{{host}}/v1/mail
+Content-Type: application/json
+Authorization: {{token}}
+
+{
+    "email" : "hamzameh122@gmail.com",
+    "mailBody" : "2000"
+}
+ 

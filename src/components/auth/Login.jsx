@@ -6,15 +6,33 @@ import {
   useToast,
   Container,
   Box,
-} from '@chakra-ui/react';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import InputField from './InputFeild';
+} from "@chakra-ui/react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import InputField from "./InputFeild";
+import Products from "./Products";
+import User from "./User";
 
 const Login = () => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
+  const [responseData, setResponseData] = useState("");
+  const [userList, setUserList] = useState([]);
+
+  const fetchData = async (token) => {
+    const options = {
+      method: "GET",
+      url: `${process.env.REACT_APP_HOST_URL}/users`,
+      headers: {
+        "content-type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    const resp = await axios(options);
+    console.log(`resp`, resp);
+    setUserList(resp.data.users);
+  };
 
   const {
     register,
@@ -35,32 +53,34 @@ const Login = () => {
       };
 
       const options = {
-        method: 'post',
+        method: "post",
         url: `${process.env.REACT_APP_HOST_URL}/auth/login`,
         data: body,
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
         },
       };
       const resp = await axios(options);
 
       toast({
-        position: 'bottom',
-        title: 'Logged In',
+        position: "bottom",
+        title: "Logged In",
         description: resp.data.message ?? "You're now logged in.",
         duration: 5000,
         isClosable: true,
-        status: 'success',
+        status: "success",
       });
+      setResponseData(resp.data);
+      fetchData(resp.data.accessToken);
       setIsLoading(false);
     } catch (err) {
       toast({
-        position: 'bottom',
-        title: 'Something went wrong',
-        description: err.response.data.message ?? '',
+        position: "bottom",
+        title: "Something went wrong",
+        description: err.response.data.message ?? "",
         duration: 5000,
         isClosable: true,
-        status: 'error',
+        status: "error",
       });
       setIsLoading(false);
     }
@@ -68,17 +88,17 @@ const Login = () => {
 
   return (
     <>
-      {' '}
+      {" "}
       <chakra.form onSubmit={handleSubmit(formSubmit)} id="chakra-form">
         <Flex flexDir="column" gap="2">
           <InputField
-            label={'Email'}
+            label={"Email"}
             {...{ register, errors }}
             value="email"
             required
           />
           <InputField
-            label={'Password'}
+            label={"Password"}
             {...{ register, errors }}
             value="password"
             required
@@ -97,6 +117,13 @@ const Login = () => {
           Login
         </Button>
       </chakra.form>
+      <Flex flexDir="column" gap="2">
+        <p>{responseData && <> Access token {responseData.accessToken} </>}</p>
+        <p>
+          {responseData && <> Refresh token {responseData.refreshToken} </>}
+        </p>
+        <p>{userList && <User users={userList} />}</p>
+      </Flex>
     </>
   );
 };

@@ -19,6 +19,22 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [responseData, setResponseData] = useState("");
   const [userList, setUserList] = useState([]);
+  const [newAccessToken, setNewAccessToken] = useState("");
+
+  const getRefreshToken = async () => {
+    const options = {
+      method: "GET",
+      url: `${process.env.REACT_APP_HOST_URL}/auth/refresh-token`,
+      withCredentials: true,
+      headers: {
+        "content-type": "application/json",
+        // Authorization: `Bearer ${token}`,
+      },
+    };
+    const resp = await axios(options);
+    console.log(`resp`, resp);
+    setNewAccessToken(resp.data.accessToken);
+  };
 
   const fetchData = async (token) => {
     const options = {
@@ -117,6 +133,22 @@ const Login = () => {
           Login
         </Button>
       </chakra.form>
+      <Flex py={2} flexDirection="column">
+        <Button
+          w="full"
+          id="form-submit-btn"
+          variant="grayButton"
+          p={2}
+          isLoading={isLoading}
+          onClick={getRefreshToken}
+        >
+          GET REFRESH TOKEN
+        </Button>
+        {newAccessToken !== "" && (
+          <Box bgColor="red.600">NEW ACCESS TOKEN{newAccessToken}</Box>
+        )}
+        <Box bgColor="red.300">NEW ACCESS TOKEN{newAccessToken}</Box>
+      </Flex>
       <Flex flexDir="column" gap="2">
         <p>{responseData && <> Access token {responseData.accessToken} </>}</p>
         <p>

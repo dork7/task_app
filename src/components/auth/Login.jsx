@@ -6,28 +6,28 @@ import {
   useToast,
   Container,
   Box,
-} from "@chakra-ui/react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import InputField from "./InputFeild";
-import Products from "./Products";
-import User from "./User";
+} from '@chakra-ui/react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import InputField from './InputFeild';
+import Products from './Products';
+import User from './User';
 
 const Login = () => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [responseData, setResponseData] = useState("");
+  const [responseData, setResponseData] = useState('');
   const [userList, setUserList] = useState([]);
-  const [newAccessToken, setNewAccessToken] = useState("");
+  const [newAccessToken, setNewAccessToken] = useState('');
 
   const getRefreshToken = async () => {
     const options = {
-      method: "GET",
+      method: 'GET',
       url: `${process.env.REACT_APP_HOST_URL}/auth/refresh-token`,
       withCredentials: true,
       headers: {
-        "content-type": "application/json",
+        'content-type': 'application/json',
         // Authorization: `Bearer ${token}`,
       },
     };
@@ -38,10 +38,10 @@ const Login = () => {
 
   const fetchData = async (token) => {
     const options = {
-      method: "GET",
+      method: 'GET',
       url: `${process.env.REACT_APP_HOST_URL}/users`,
       headers: {
-        "content-type": "application/json",
+        'content-type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
     };
@@ -69,34 +69,35 @@ const Login = () => {
       };
 
       const options = {
-        method: "post",
+        method: 'post',
         url: `${process.env.REACT_APP_HOST_URL}/auth/login`,
         data: body,
+        withCredentials: true,
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
       };
       const resp = await axios(options);
 
       toast({
-        position: "bottom",
-        title: "Logged In",
+        position: 'bottom',
+        title: 'Logged In',
         description: resp.data.message ?? "You're now logged in.",
         duration: 5000,
         isClosable: true,
-        status: "success",
+        status: 'success',
       });
       setResponseData(resp.data);
-      fetchData(resp.data.accessToken);
+      // fetchData(resp.data.accessToken);
       setIsLoading(false);
     } catch (err) {
       toast({
-        position: "bottom",
-        title: "Something went wrong",
-        description: err.response.data.message ?? "",
+        position: 'bottom',
+        title: 'Something went wrong',
+        description: err.response.data.message ?? '',
         duration: 5000,
         isClosable: true,
-        status: "error",
+        status: 'error',
       });
       setIsLoading(false);
     }
@@ -104,20 +105,22 @@ const Login = () => {
 
   return (
     <>
-      {" "}
+      {' '}
       <chakra.form onSubmit={handleSubmit(formSubmit)} id="chakra-form">
         <Flex flexDir="column" gap="2">
           <InputField
-            label={"Email"}
+            label={'Email'}
             {...{ register, errors }}
             value="email"
             required
+            defaultValue="vendor@sublo.co"
           />
           <InputField
-            label={"Password"}
+            label={'Password'}
             {...{ register, errors }}
             value="password"
             required
+            defaultValue="123"
             type="password"
           />
         </Flex>
@@ -144,7 +147,8 @@ const Login = () => {
         >
           GET REFRESH TOKEN
         </Button>
-        {newAccessToken !== "" && (
+
+        {newAccessToken !== '' && (
           <Box bgColor="red.600">NEW ACCESS TOKEN{newAccessToken}</Box>
         )}
         <Box bgColor="red.300">NEW ACCESS TOKEN{newAccessToken}</Box>

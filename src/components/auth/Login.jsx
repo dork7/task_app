@@ -149,9 +149,8 @@ const Login = () => {
         </Button>
 
         {newAccessToken !== '' && (
-          <Box bgColor="red.600">NEW ACCESS TOKEN{newAccessToken}</Box>
+          <Box bgColor="red.500">NEW ACCESS TOKEN{newAccessToken}</Box>
         )}
-        <Box bgColor="red.300">NEW ACCESS TOKEN{newAccessToken}</Box>
       </Flex>
       <Flex flexDir="column" gap="2">
         <p>{responseData && <> Access token {responseData.accessToken} </>}</p>

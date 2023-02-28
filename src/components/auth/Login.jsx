@@ -6,48 +6,33 @@ import {
   useToast,
   Container,
   Box,
-} from '@chakra-ui/react';
-import axios from 'axios';
-import React, { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import InputField from './InputFeild';
-import Products from './Products';
-import User from './User';
+} from "@chakra-ui/react";
+import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { createToast } from "../notification";
+import InputField from "./InputFeild";
+import Products from "./Products";
 
 const Login = () => {
   const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [responseData, setResponseData] = useState('');
-  const [userList, setUserList] = useState([]);
-  const [newAccessToken, setNewAccessToken] = useState('');
+  const [responseData, setResponseData] = useState("");
+  const [newAccessToken, setNewAccessToken] = useState("");
 
   const getRefreshToken = async () => {
     const options = {
-      method: 'GET',
+      method: "GET",
       url: `${process.env.REACT_APP_HOST_URL}/auth/refresh-token`,
       withCredentials: true,
       headers: {
-        'content-type': 'application/json',
+        "content-type": "application/json",
         // Authorization: `Bearer ${token}`,
       },
     };
     const resp = await axios(options);
     console.log(`resp`, resp);
     setNewAccessToken(resp.data.accessToken);
-  };
-
-  const fetchData = async (token) => {
-    const options = {
-      method: 'GET',
-      url: `${process.env.REACT_APP_HOST_URL}/users`,
-      headers: {
-        'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    const resp = await axios(options);
-    console.log(`resp`, resp);
-    setUserList(resp.data.users);
   };
 
   const {
@@ -69,35 +54,29 @@ const Login = () => {
       };
 
       const options = {
-        method: 'post',
+        method: "post",
         url: `${process.env.REACT_APP_HOST_URL}/auth/login`,
         data: body,
         withCredentials: true,
         headers: {
-          'content-type': 'application/json',
+          "content-type": "application/json",
         },
       };
       const resp = await axios(options);
 
-      toast({
-        position: 'bottom',
-        title: 'Logged In',
-        description: resp.data.message ?? "You're now logged in.",
-        duration: 5000,
-        isClosable: true,
-        status: 'success',
+      createToast({
+        title: "Logged In",
+        msg: resp.data.message ?? "You're now logged in.",
+        status: "success",
       });
       setResponseData(resp.data);
       // fetchData(resp.data.accessToken);
       setIsLoading(false);
     } catch (err) {
-      toast({
-        position: 'bottom',
-        title: 'Something went wrong',
-        description: err.response.data.message ?? '',
-        duration: 5000,
-        isClosable: true,
-        status: 'error',
+      createToast({
+        title: "Something went wrong",
+        msg: err.response.data.message ?? "",
+        status: "error",
       });
       setIsLoading(false);
     }
@@ -105,18 +84,18 @@ const Login = () => {
 
   return (
     <>
-      {' '}
+      {" "}
       <chakra.form onSubmit={handleSubmit(formSubmit)} id="chakra-form">
         <Flex flexDir="column" gap="2">
           <InputField
-            label={'Email'}
+            label={"Email"}
             {...{ register, errors }}
             value="email"
             required
             defaultValue="vendor@sublo.co"
           />
           <InputField
-            label={'Password'}
+            label={"Password"}
             {...{ register, errors }}
             value="password"
             required
@@ -148,7 +127,7 @@ const Login = () => {
           GET REFRESH TOKEN
         </Button>
 
-        {newAccessToken !== '' && (
+        {newAccessToken !== "" && (
           <Box bgColor="red.500">NEW ACCESS TOKEN{newAccessToken}</Box>
         )}
       </Flex>
@@ -157,7 +136,11 @@ const Login = () => {
         <p>
           {responseData && <> Refresh token {responseData.refreshToken} </>}
         </p>
-        <p>{userList && <User users={userList} />}</p>
+        <Products
+          token={
+            newAccessToken === "" ? responseData.accessToken : newAccessToken
+          }
+        />
       </Flex>
     </>
   );

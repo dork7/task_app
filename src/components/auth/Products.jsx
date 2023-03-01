@@ -2,13 +2,14 @@ import { Button } from '@chakra-ui/react';
 import React, { useContext, useState } from 'react';
 import axios from '../../config/axios';
 import AuthContext from '../../context/AuthProvider';
+import useAuth from '../../hooks/useAuth';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { createToast } from '../notification';
 
 const Products = ({ token, ...props }) => {
   const [productsList, setProductsList] = useState([]);
   const { getStoredValue, storeValue, removeValue } = useLocalStorage();
-  const { auth } = useContext(AuthContext);
+  const { auth } = useAuth();
 
   const fetchData = async () => {
     const JWTToken = await getStoredValue('jwtToken');

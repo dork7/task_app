@@ -28,6 +28,7 @@ import Page404 from './Page404';
 import ProfilePage from './components/Profile';
 import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import GraphQl from './components/GraphQl';
+import RequireAuth from './components/RequireAuth';
 
 const apolloClient = new ApolloClient({
   uri: 'http://localhost:4000/v1/graphql',
@@ -140,33 +141,35 @@ function App() {
                           path="/"
                           render={(props) => <Home {...props} />}
                         />
-                        <Route path="/chat" component={ChatLayout} />
-                        <Route path="/todos" component={FlexLayout} />
-                        <Route path="/axios" component={AxiosLayout} />
-                        <Route path="/receiver" component={Receiver} />
-                        <Route path="/nodemailer" component={MailSender} />
-                        <Route path="/react-hooks" component={ReactHooks} />
-                        {/* <Route  path="/observable" component={Observables} /> */}
-                        <Route path="/map" component={MapComponent} />
-                        <Route path="/animations" component={Animations} />
-                        <Route path="/hoc" component={HOC} />
-                        <Route path="/forms" component={Forms} />
-                        <Route path="/portal" component={Portal} />
-                        <Route
-                          path="/methodImplementations"
-                          component={MethodImplementations}
-                        />
-                        <Route path="/profilePage">
-                          {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
+                        <Route element={<RequireAuth />}>
+                          <Route path="/chat" element={ChatLayout} />
+                          <Route path="/todos" element={FlexLayout} />
+                          <Route path="/axios" element={AxiosLayout} />
+                          <Route path="/receiver" element={Receiver} />
+                          <Route path="/nodemailer" element={MailSender} />
+                          <Route path="/react-hooks" element={ReactHooks} />
+                          {/* <Route  path="/observable" element={Observables} /> */}
+                          <Route path="/map" element={MapComponent} />
+                          <Route path="/animations" element={Animations} />
+                          <Route path="/hoc" element={HOC} />
+                          <Route path="/forms" element={Forms} />
+                          <Route path="/portal" element={Portal} />
+                          <Route
+                            path="/methodImplementations"
+                            element={MethodImplementations}
+                          />
+                          <Route path="/profilePage">
+                            {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
+                          </Route>
+                          <Route
+                            path="/autocomplete"
+                            element={AutoCompleteField}
+                          />
+                          <Route path="/excel" element={Excel} />
+                          <Route path="/graphql-apollo" element={GraphQl} />
+                          <Route path="/plain-html" element={PlainHtml} />
                         </Route>
-                        <Route
-                          path="/autocomplete"
-                          component={AutoCompleteField}
-                        />
-                        <Route path="/excel" component={Excel} />
-                        <Route path="/graphql-apollo" component={GraphQl} />
-                        <Route path="/plain-html" component={PlainHtml} />
-                        <Route path="/auth" component={Auth} />
+                        <Route path="/auth" element={Auth} />
 
                         {/* <Route component={Page404} /> */}
 

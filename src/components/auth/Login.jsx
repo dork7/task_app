@@ -1,8 +1,8 @@
 import { Box, Button, chakra, Flex } from '@chakra-ui/react';
-import React, { useContext, useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from '../../config/axios';
-import AuthContext from '../../context/AuthProvider';
+import useAuth from '../../hooks/useAuth';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { createToast } from '../notification';
 import InputField from './InputFeild';
@@ -14,7 +14,7 @@ const Login = () => {
   const [newAccessToken, setNewAccessToken] = useState('');
   const { getStoredValue, storeValue, removeValue } = useLocalStorage();
 
-  const authCTX = useContext(AuthContext);
+  const { auth, setAuth } = useAuth();
 
   const getRefreshToken = async () => {
     const options = {
@@ -66,10 +66,8 @@ const Login = () => {
       });
       setResponseData(resp.data);
       const jwtToken = resp?.data?.accessToken;
-      console.log(`jwtToken`, jwtToken);
       storeValue('jwtToken', jwtToken);
-      console.log(`authCTX`, authCTX);
-      authCTX.setAuth({ accessToken: jwtToken });
+      setAuth({ accessToken: jwtToken });
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);

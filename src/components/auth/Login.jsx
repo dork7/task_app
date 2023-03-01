@@ -1,7 +1,8 @@
 import { Box, Button, chakra, Flex } from '@chakra-ui/react';
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import axios from '../../config/axios';
+import AuthContext from '../../context/AuthProvider';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { createToast } from '../notification';
 import InputField from './InputFeild';
@@ -12,6 +13,8 @@ const Login = () => {
   const [responseData, setResponseData] = useState('');
   const [newAccessToken, setNewAccessToken] = useState('');
   const { getStoredValue, storeValue, removeValue } = useLocalStorage();
+
+  const authCTX = useContext(AuthContext);
 
   const getRefreshToken = async () => {
     const options = {
@@ -62,26 +65,27 @@ const Login = () => {
         type: 'success',
       });
       setResponseData(resp.data);
-      // fetchData(resp.data.accessToken);
-      storeValue('jwtToken', resp.data.accessToken);
+      const jwtToken = resp?.data?.accessToken;
+      console.log(`jwtToken`, jwtToken);
+      storeValue('jwtToken', jwtToken);
+      console.log(`authCTX`, authCTX);
+      authCTX.setAuth({ accessToken: jwtToken });
       setIsLoading(false);
     } catch (err) {
       setIsLoading(false);
-      console.log(`err`, err.toJSON());
       if (!err.response) {
         createToast({
           title: 'Something went wrong',
-          msg: err.toJSON().message,
+          // msg: err.toJSON().message,
           type: 'error',
         });
-        return;
+      } else {
+        createToast({
+          title: 'Something went wrong',
+          msg: err.response.data.message ?? '',
+          type: 'error',
+        });
       }
-
-      createToast({
-        title: 'Something went wrong',
-        msg: err.response.data.message ?? '',
-        type: 'error',
-      });
     }
   };
 

@@ -53,6 +53,13 @@ function App() {
   const pages = [
     { id: 'dashboard', label: 'DashBoard', href: '/' },
     { id: 'AUTH', label: 'Auth', href: '/auth' },
+    { id: 'forms', label: 'Forms', href: '/forms', protected: true },
+    {
+      id: 'profilePage',
+      label: 'ProfilePage',
+      href: '/profilePage',
+      protected: true,
+    },
     { id: 'todo', label: 'Todo', href: '/todos' },
     // { label: "Methods", href: "/methodImplementations" },
     { id: 'axios', label: 'Axios', href: '/axios' },
@@ -65,9 +72,7 @@ function App() {
     { id: 'autocomplete', label: 'Autocomplete', href: '/autocomplete' },
     { id: 'animations', label: 'Animations', href: '/animations' },
     { id: 'hoc', label: 'HOC', href: '/hoc' },
-    { id: 'forms', label: 'Forms', href: '/forms' },
     { id: 'portal', label: 'Portal', href: '/portal' },
-    { id: 'profilePage', label: 'ProfilePage', href: '/profilePage' },
     { id: 'Excel', label: 'Excel', href: '/excel' },
     { id: 'Graphql', label: 'Graphql', href: '/graphql-apollo' },
     { id: 'Plain HTML', label: 'Plain HTML', href: '/plain-html' },

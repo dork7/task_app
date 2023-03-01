@@ -35,6 +35,16 @@ export const ExtendedButtons = {
         color: 'black',
       },
     },
+    protectedRoute: {
+      bg: 'red.600',
+      color: 'white',
+      borderRadius: 0,
+      width: 200,
+      _hover: {
+        bg: 'white',
+        color: 'black',
+      },
+    },
 
     sm: {
       //   bg: 'teal.500',

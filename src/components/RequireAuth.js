@@ -5,11 +5,11 @@ import { Outlet, useLocation, Navigate } from 'react-router-dom';
 const RequireAuth = () => {
   const { auth } = useAuth();
   const location = useLocation();
-  // return <Navigate to="/auth" state={{ form: location }} replace />;
+
   return auth.accessToken ? (
     <Outlet />
   ) : (
-    <Navigate to="/auth" state={{ form: location }} replace />
+    <Navigate to="/auth" state={{ from: location }} replace />
   );
 };
 

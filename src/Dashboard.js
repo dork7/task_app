@@ -59,7 +59,7 @@ const Dashboard = ({ pages, loggedIn, setLoggedIn, children }) => {
                   <Link key={`${page}-${idx}`} to={page.href}>
                     <Button
                       key={`${page}-${idx}`}
-                      variant="grayButton"
+                      variant={page.protected ? 'protectedRoute' : 'grayButton'}
                       m={2}
                       data-testid={`tab-${idx}`}
                       size="sm"

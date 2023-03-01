@@ -41,7 +41,7 @@ const Home = (props) => {
       // backgroundColor="gray.700"
       grow={true}
       // height="100%"
-      // width=""
+      width="70vw"
       p={4}
     >
       <motion.div

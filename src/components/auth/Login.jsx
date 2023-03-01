@@ -7,6 +7,7 @@ import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { createToast } from '../notification';
 import InputField from './InputFeild';
 import Products from './Products';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +16,8 @@ const Login = () => {
   const { getStoredValue, storeValue, removeValue } = useLocalStorage();
 
   const { auth, setAuth } = useAuth();
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const getRefreshToken = async () => {
     const options = {
@@ -41,7 +44,7 @@ const Login = () => {
   const formSubmit = async (data) => {
     try {
       setIsLoading(true);
-
+      const from = location.state?.from?.pathname || '/';
       const { email, password } = data;
       const body = {
         email,
@@ -69,6 +72,7 @@ const Login = () => {
       storeValue('jwtToken', jwtToken);
       setAuth({ accessToken: jwtToken });
       setIsLoading(false);
+      navigate(from, { replace: true });
     } catch (err) {
       setIsLoading(false);
       if (!err.response) {

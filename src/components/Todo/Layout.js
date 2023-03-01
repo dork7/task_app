@@ -1,16 +1,16 @@
 import { Flex, Stack, Text } from '@chakra-ui/react';
 import React, { useEffect, useReducer } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import ACTIONS from '../Actions/Actions';
-import { useFetchData } from '../hooks/useFetchData';
-import reducer from '../reducers/tasksReducer';
+import { Route, Routes } from 'react-router-dom';
+import ACTIONS from '../../Actions/Actions';
+import { useFetchData } from '../../hooks/useFetchData';
+import reducer from '../../reducers/tasksReducer';
 import About from './About';
 import CompletedTasks from './CompletedTasks';
 import Footer from './Footer';
 import Tasks from './Tasks';
 import TextComponent from './TextComponent';
 import { motion, useViewportScroll } from 'framer-motion';
-import { useMainAnimation } from './animations/useMainAnimation';
+import { useMainAnimation } from '../animations/useMainAnimation';
 
 const FlexLayout = () => {
   const [state, dispatch] = useReducer(reducer, []);
@@ -104,7 +104,7 @@ const FlexLayout = () => {
   const mainAnimation = useMainAnimation();
 
   return (
-    <Router>
+    <>
       <motion.div
         variants={mainAnimation}
         initial="hidden"
@@ -128,31 +128,33 @@ const FlexLayout = () => {
           )}
           <TextComponent variant="filled" btnText="Add" onAdd={addTaskInList} /> */}
             {/* <MButton variant="" text="Add" onClick={onButtonClick}></MButton> */}
-            <Route
-              path="/todos"
-              exact
-              render={(props) => (
-                <>
-                  {' '}
-                  {console.log(state)}
-                  {state?.length > 0 ? (
-                    <Tasks
-                      tasks={state}
-                      onDelete={deleteTask}
-                      setDone={setDoneState}
+            <Routes>
+              <Route
+                path="/todos"
+                exact
+                render={(props) => (
+                  <>
+                    {' '}
+                    {console.log(state)}
+                    {state?.length > 0 ? (
+                      <Tasks
+                        tasks={state}
+                        onDelete={deleteTask}
+                        setDone={setDoneState}
+                      />
+                    ) : (
+                      <h1>No task</h1>
+                    )}
+                    <TextComponent
+                      variant="filled"
+                      btnText="Add"
+                      onAdd={addTaskInList}
                     />
-                  ) : (
-                    <h1>No task</h1>
-                  )}
-                  <TextComponent
-                    variant="filled"
-                    btnText="Add"
-                    onAdd={addTaskInList}
-                  />
-                </>
-              )}
-            />
-            <Route exact path="/about" component={About} />
+                  </>
+                )}
+              />
+              <Route exact path="/about" element={<About />} />
+            </Routes>
             <Footer />
             {/* <QueryFetch /> */}
           </Stack>
@@ -175,7 +177,7 @@ const FlexLayout = () => {
         </Stack> */}
         </Flex>
       </motion.div>
-    </Router>
+    </>
   );
 };
 

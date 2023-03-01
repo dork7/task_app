@@ -1,7 +1,7 @@
-import { Box, Flex, Text } from '@chakra-ui/react';
-import React, { useEffect } from 'react';
+import { Flex, Text } from '@chakra-ui/react';
 import { motion } from 'framer-motion';
-import { useHistory, useLocation } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 const Home = (props) => {
   const homeAnimation = {
     hidden: {
@@ -27,9 +27,9 @@ const Home = (props) => {
   // getting query from useLocation
   const query = new URLSearchParams(useLocation().search);
   // history demo
-  const history = useHistory();
+  const navigate = useNavigate();
   useEffect(() => {
-    history.push('?test=url param set using useHistory');
+    navigate('?test=url param set using useNavigate ');
   }, []);
 
   // if (Math.random() > 0.5) return new Error('Error for testing test boundary');
@@ -39,8 +39,9 @@ const Home = (props) => {
       alignItems="center"
       justifyContent="center"
       // backgroundColor="gray.700"
-      // grow={true}
+      grow={true}
       // height="100%"
+      // width=""
       p={4}
     >
       <motion.div

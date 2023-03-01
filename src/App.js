@@ -1,34 +1,20 @@
-import {
-  ChakraProvider,
-  extendTheme,
-  Box,
-  Flex,
-  Button,
-} from '@chakra-ui/react';
+import { ApolloClient, ApolloProvider, InMemoryCache } from '@apollo/client';
+import { ChakraProvider, Flex, Spinner } from '@chakra-ui/react';
+import 'antd/dist/antd.css';
+import { motion } from 'framer-motion';
 import PubNub from 'pubnub';
 import { PubNubProvider } from 'pubnub-react';
 import React, { Suspense, useEffect, useState } from 'react';
+import { ErrorBoundary } from 'react-error-boundary';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
-import {
-  BrowserRouter as Router,
-  Redirect,
-  Route,
-  Switch,
-  useLocation,
-} from 'react-router-dom';
-import { Center, Spinner } from '@chakra-ui/react';
-
-import { motion, useViewportScroll, AnimatePresence } from 'framer-motion';
-import 'antd/dist/antd.css';
-import theme from './config/theme';
-import { ErrorBoundary } from 'react-error-boundary';
+import { Navigate } from 'react-router';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import ErrorFallback from './components/ErrorBoundries';
-import Page404 from './Page404';
-import ProfilePage from './components/Profile';
-import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client';
 import GraphQl from './components/GraphQl';
+import ProfilePage from './components/Profile';
 import RequireAuth from './components/RequireAuth';
+import theme from './config/theme';
 
 const apolloClient = new ApolloClient({
   uri: 'http://localhost:4000/v1/graphql',
@@ -43,7 +29,7 @@ const ChatLayout = React.lazy(() => import('./components/chat/ChatLayout'));
 const Receiver = React.lazy(() => import('./components/chat/Receiver'));
 const Home = React.lazy(() => import('./components/Home'));
 const ReactHooks = React.lazy(() => import('./components/hooks'));
-const FlexLayout = React.lazy(() => import('./components/Layout'));
+const FlexLayout = React.lazy(() => import('./components/Todo/Layout'));
 const MapComponent = React.lazy(() => import('./components/map'));
 const Portal = React.lazy(() => import('./components/Portal'));
 const Auth = React.lazy(() => import('./components/auth'));
@@ -126,7 +112,6 @@ function App() {
                 }}
               >
                 <div className="App">
-                  {/* <Navbar /> */}
                   <Dashboard pages={pages} {...{ loggedIn, setLoggedIn }}>
                     <ErrorBoundary
                       FallbackComponent={ErrorFallback}
@@ -134,49 +119,49 @@ function App() {
                         // reset the state of your app so the error doesn't happen again
                       }}
                     >
-                      <Switch>
-                        {/* <Route  path="/" component={Home} /> */}
-                        <Route
+                      <Routes>
+                        {/* <Route
                           exact
                           path="/"
-                          render={(props) => <Home {...props} />}
+                          // render={(props) => <Home {...props} />}
+                        /> */}
+                        <Route path="/" element={<Home />} />
+                        <Route path="/chat" element={<ChatLayout />} />
+                        <Route path="/todos" element={<FlexLayout />} />
+                        <Route path="/axios" element={<AxiosLayout />} />
+                        <Route path="/receiver" element={<Receiver />} />
+                        <Route path="/nodemailer" element={<MailSender />} />
+                        <Route path="/react-hooks" element={<ReactHooks />} />
+                        {/* <Route  path="/observable" element={Observables} /> */}
+                        <Route path="/map" element={<MapComponent />} />
+                        <Route path="/animations" element={<Animations />} />
+                        <Route path="/hoc" element={<HOC />} />
+                        <Route path="/portal" element={<Portal />} />
+                        <Route
+                          path="/methodImplementations"
+                          element={MethodImplementations}
                         />
+                        // PROTECTED ROUTES
                         <Route element={<RequireAuth />}>
-                          <Route path="/chat" element={ChatLayout} />
-                          <Route path="/todos" element={FlexLayout} />
-                          <Route path="/axios" element={AxiosLayout} />
-                          <Route path="/receiver" element={Receiver} />
-                          <Route path="/nodemailer" element={MailSender} />
-                          <Route path="/react-hooks" element={ReactHooks} />
-                          {/* <Route  path="/observable" element={Observables} /> */}
-                          <Route path="/map" element={MapComponent} />
-                          <Route path="/animations" element={Animations} />
-                          <Route path="/hoc" element={HOC} />
-                          <Route path="/forms" element={Forms} />
-                          <Route path="/portal" element={Portal} />
+                          <Route path="/forms" element={<Forms />} />
                           <Route
-                            path="/methodImplementations"
-                            element={MethodImplementations}
+                            path="/profilePage"
+                            element={
+                              loggedIn ? <ProfilePage /> : <Navigate to="/" />
+                            }
                           />
-                          <Route path="/profilePage">
-                            {loggedIn ? <ProfilePage /> : <Redirect to="/" />}
-                          </Route>
-                          <Route
-                            path="/autocomplete"
-                            element={AutoCompleteField}
-                          />
-                          <Route path="/excel" element={Excel} />
-                          <Route path="/graphql-apollo" element={GraphQl} />
-                          <Route path="/plain-html" element={PlainHtml} />
                         </Route>
-                        <Route path="/auth" element={Auth} />
-
-                        {/* <Route component={Page404} /> */}
-
-                        {/* <Redirect from="/" to="chat" /> */}
-                      </Switch>
+                        // PROTECTED ROUTES
+                        <Route
+                          path="/autocomplete"
+                          element={<AutoCompleteField />}
+                        />
+                        <Route path="/excel" element={<Excel />} />
+                        <Route path="/graphql-apollo" element={<GraphQl />} />
+                        <Route path="/plain-html" element={<PlainHtml />} />
+                        <Route path="/auth" element={<Auth />} />
+                      </Routes>
                     </ErrorBoundary>
-                    {/* <Footer /> */}
                   </Dashboard>
                 </div>
               </motion.div>

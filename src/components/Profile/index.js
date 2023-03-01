@@ -1,12 +1,12 @@
 import { Button, HStack, Text } from '@chakra-ui/react';
 import React from 'react';
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Link, Route, Routes, useMatch } from 'react-router-dom';
 import BasicLayout from '../BasicLayout';
 import EditProfile from './EditProfile';
 import ViewProfile from './ViewProfile';
 
 const ProfilePage = () => {
-  const { path, url } = useRouteMatch();
+  const { path, url } = useMatch();
 
   return (
     <BasicLayout>
@@ -21,10 +21,8 @@ const ProfilePage = () => {
           <Button>View Profile</Button>
         </Link>
       </HStack>
-      <Switch>
-        <Route path={`${path}/edit-profile`} component={ViewProfile} />
-        <Route path={`${path}/view-profile`} component={EditProfile} />
-      </Switch>
+      <Route path={`${path}/edit-profile`} element={<ViewProfile />} />
+      <Route path={`${path}/view-profile`} element={<EditProfile />} />
     </BasicLayout>
   );
 };

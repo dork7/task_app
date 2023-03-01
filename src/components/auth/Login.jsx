@@ -1,7 +1,7 @@
 import { Box, Button, chakra, Flex } from '@chakra-ui/react';
-import axios from 'axios';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import axios from '../../config/axios';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { createToast } from '../notification';
 import InputField from './InputFeild';
@@ -11,12 +11,12 @@ const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [responseData, setResponseData] = useState('');
   const [newAccessToken, setNewAccessToken] = useState('');
-  // const { getStoredValue, storeValue, removeValue } = useLocalStorage();
+  const { getStoredValue, storeValue, removeValue } = useLocalStorage();
 
   const getRefreshToken = async () => {
     const options = {
       method: 'GET',
-      url: `${process.env.REACT_APP_HOST_URL}/auth/refresh-token`,
+      url: `/auth/refresh-token`,
       withCredentials: true,
       headers: {
         'content-type': 'application/json',
@@ -24,7 +24,6 @@ const Login = () => {
       },
     };
     const resp = await axios(options);
-    console.log(`resp`, resp);
     setNewAccessToken(resp.data.accessToken);
   };
 
@@ -48,7 +47,7 @@ const Login = () => {
 
       const options = {
         method: 'post',
-        url: `${process.env.REACT_APP_HOST_URL}/auth/login`,
+        url: `/auth/login`,
         data: body,
         withCredentials: true,
         headers: {
@@ -60,19 +59,29 @@ const Login = () => {
       createToast({
         title: 'Logged In',
         msg: resp.data.message ?? "You're now logged in.",
-        status: 'success',
+        type: 'success',
       });
       setResponseData(resp.data);
       // fetchData(resp.data.accessToken);
-      // storeValue('jwtToken', resp.data.accessToken);
+      storeValue('jwtToken', resp.data.accessToken);
       setIsLoading(false);
     } catch (err) {
+      setIsLoading(false);
+      console.log(`err`, err.toJSON());
+      if (!err.response) {
+        createToast({
+          title: 'Something went wrong',
+          msg: err.toJSON().message,
+          type: 'error',
+        });
+        return;
+      }
+
       createToast({
         title: 'Something went wrong',
         msg: err.response.data.message ?? '',
-        status: 'error',
+        type: 'error',
       });
-      setIsLoading(false);
     }
   };
 

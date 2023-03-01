@@ -1,6 +1,6 @@
 import { Button } from '@chakra-ui/react';
-import axios from 'axios';
 import React, { useState } from 'react';
+import axios from '../../config/axios';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const Products = ({ token, ...props }) => {
@@ -8,16 +8,15 @@ const Products = ({ token, ...props }) => {
   const { getStoredValue, storeValue, removeValue } = useLocalStorage();
 
   const fetchData = async () => {
+    const JWTToken = await getStoredValue('jwtToken');
     const options = {
       method: 'GET',
-      url: `${process.env.REACT_APP_HOST_URL}/product/protected`,
+      url: `/product/protected`,
       headers: {
         'content-type': 'application/json',
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${JWTToken}`,
       },
     };
-    const val = await getStoredValue('jwtToken');
-    console.log(`jwtToken`, val);
     const resp = await axios(options);
     setProductsList(resp.data.products);
   };

@@ -1,32 +1,25 @@
-import {
-  Button,
-  chakra,
-  Flex,
-  Text,
-  useToast,
-  Container,
-  Box,
-} from "@chakra-ui/react";
-import axios from "axios";
-import React, { useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
-import { createToast } from "../notification";
-import InputField from "./InputFeild";
-import Products from "./Products";
+import { Box, Button, chakra, Flex } from '@chakra-ui/react';
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { createToast } from '../notification';
+import InputField from './InputFeild';
+import Products from './Products';
 
 const Login = () => {
-  const toast = useToast();
   const [isLoading, setIsLoading] = useState(false);
-  const [responseData, setResponseData] = useState("");
-  const [newAccessToken, setNewAccessToken] = useState("");
+  const [responseData, setResponseData] = useState('');
+  const [newAccessToken, setNewAccessToken] = useState('');
+  // const { getStoredValue, storeValue, removeValue } = useLocalStorage();
 
   const getRefreshToken = async () => {
     const options = {
-      method: "GET",
+      method: 'GET',
       url: `${process.env.REACT_APP_HOST_URL}/auth/refresh-token`,
       withCredentials: true,
       headers: {
-        "content-type": "application/json",
+        'content-type': 'application/json',
         // Authorization: `Bearer ${token}`,
       },
     };
@@ -54,29 +47,30 @@ const Login = () => {
       };
 
       const options = {
-        method: "post",
+        method: 'post',
         url: `${process.env.REACT_APP_HOST_URL}/auth/login`,
         data: body,
         withCredentials: true,
         headers: {
-          "content-type": "application/json",
+          'content-type': 'application/json',
         },
       };
       const resp = await axios(options);
 
       createToast({
-        title: "Logged In",
+        title: 'Logged In',
         msg: resp.data.message ?? "You're now logged in.",
-        status: "success",
+        status: 'success',
       });
       setResponseData(resp.data);
       // fetchData(resp.data.accessToken);
+      // storeValue('jwtToken', resp.data.accessToken);
       setIsLoading(false);
     } catch (err) {
       createToast({
-        title: "Something went wrong",
-        msg: err.response.data.message ?? "",
-        status: "error",
+        title: 'Something went wrong',
+        msg: err.response.data.message ?? '',
+        status: 'error',
       });
       setIsLoading(false);
     }
@@ -84,18 +78,18 @@ const Login = () => {
 
   return (
     <>
-      {" "}
+      {' '}
       <chakra.form onSubmit={handleSubmit(formSubmit)} id="chakra-form">
         <Flex flexDir="column" gap="2">
           <InputField
-            label={"Email"}
+            label={'Email'}
             {...{ register, errors }}
             value="email"
             required
             defaultValue="vendor@sublo.co"
           />
           <InputField
-            label={"Password"}
+            label={'Password'}
             {...{ register, errors }}
             value="password"
             required
@@ -127,7 +121,7 @@ const Login = () => {
           GET REFRESH TOKEN
         </Button>
 
-        {newAccessToken !== "" && (
+        {newAccessToken !== '' && (
           <Box bgColor="red.500">NEW ACCESS TOKEN{newAccessToken}</Box>
         )}
       </Flex>
@@ -138,7 +132,7 @@ const Login = () => {
         </p>
         <Products
           token={
-            newAccessToken === "" ? responseData.accessToken : newAccessToken
+            newAccessToken === '' ? responseData.accessToken : newAccessToken
           }
         />
       </Flex>

@@ -26,3 +26,5 @@ export const useLocalStorage = () => {
 
   return { getStoredValue, storeValue, removeValue };
 };
+//
+// USAGE : const { getStoredValue, storeValue, removeValue } = useLocalStorage();

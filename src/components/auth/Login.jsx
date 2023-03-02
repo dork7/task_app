@@ -8,6 +8,7 @@ import { createToast } from '../notification';
 import InputField from './InputFeild';
 import Products from './Products';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { useRefreshToken } from '../../hooks/useRefreshToken';
 
 const Login = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -19,18 +20,11 @@ const Login = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
+  const refresh = useRefreshToken();
+
   const getRefreshToken = async () => {
-    const options = {
-      method: 'GET',
-      url: `/auth/refresh-token`,
-      withCredentials: true,
-      headers: {
-        'content-type': 'application/json',
-        // Authorization: `Bearer ${token}`,
-      },
-    };
-    const resp = await axios(options);
-    setNewAccessToken(resp.data.accessToken);
+    const newToken = await refresh();
+    setNewAccessToken(newToken);
   };
 
   const {
@@ -72,7 +66,7 @@ const Login = () => {
       storeValue('jwtToken', jwtToken);
       setAuth({ accessToken: jwtToken });
       setIsLoading(false);
-      navigate(from, { replace: true });
+      // navigate(from, { replace: true });
     } catch (err) {
       setIsLoading(false);
       if (!err.response) {

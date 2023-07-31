@@ -7,8 +7,8 @@ jobs:
       - name: 🛫 Checkout
         uses: actions/checkout@v2
       - name: Set node env
-         run: export NODE_OPTIONS=--openssl-legacy-provider
-
+        run: |
+          export NODE_OPTIONS=--openssl-legacy-provider
 
       - name: 💻 'UI Tests - Cypress'
         uses: cypress-io/github-action@v2.9.7

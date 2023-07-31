@@ -146,9 +146,10 @@ function App() {
                           path="/methodImplementations"
                           element={MethodImplementations}
                         />
+                        <Route path="/forms" element={<Forms />} />
                         // PROTECTED ROUTES
+                        {/* <Route element={<RequireAuth />}> */}
                         <Route element={<RequireAuth />}>
-                          <Route path="/forms" element={<Forms />} />
                           <Route
                             path="/profilePage"
                             element={

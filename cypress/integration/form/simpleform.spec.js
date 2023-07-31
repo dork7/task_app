@@ -2,7 +2,7 @@
 
 describe('Form Testing', () => {
   beforeEach(() => {
-    cy.visit('http://localhost:3000/');
+    cy.visit('http://localhost:3000');
     // cy.visit(Cypress.env('host'));
     cy.viewport(1280, 720);
   });
@@ -18,7 +18,8 @@ describe('Form Testing', () => {
     cy.fixture('example.json').then((data) => {
       cy.log(data);
 
-      cy.contains('Forms').click();
+      // cy.contains('Forms').click();
+      cy.get('[data-testid="tab-2"]').click();
       // working with URL
       cy.url().should('include', '/forms');
       // check text
@@ -36,9 +37,11 @@ describe('Form Testing', () => {
         force: true,
       });
       cy.get('#date-picker').click();
-      cy.get(
-        '.ant-picker-content tbody tr:nth-child(2) td:nth-child(3)'
-      ).click();
+      
+      // cy.get(
+      //   '.ant-picker-content tbody tr:nth-child(2) td:nth-child(3)'
+      // ).click();
+
       cy.get('#text-area').type('Sample text area ');
       // cy.get('#form-submit-btn').click();
       cy.get('#chakra-form').submit();

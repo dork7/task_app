@@ -4,8 +4,6 @@ This is a react based demo application which contain implementation of different
 
 ##
 
-DEMO : http://react-demo-mapp.herokuapp.com/
-
 DEMO : https://react-demo.dork7.tk/
 
 ##
